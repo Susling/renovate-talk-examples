@@ -1,7 +1,7 @@
 # Dependency Dashboard
 
 > [!NOTE]
-> Illustrative issue. The section titles, the section texts, the checkbox format and the "Detected Dependencies" format are what Renovate 44 writes. The repository, the issue number, the PR numbers and the developer actions are fictional. The dependencies are the real versions on 2025-01-17.
+> Illustrative issue. The section titles, the section texts, the checkbox format and the "Detected Dependencies" format are what Renovate 44 writes. The repository, the issue number, the PR numbers and the developer actions are fictional. The dependencies are the real versions on 2025-01-17. Renovate writes the PR links as relative links, for example `../pull/415`. These links open the PR in a real issue, but not in this repository.
 
 | Field | Value |
 |---|---|
