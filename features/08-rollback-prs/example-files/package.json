@@ -1,0 +1,37 @@
+{
+  "name": "contoso-web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "eslint \"src/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.{ts,html,scss}\""
+  },
+  "dependencies": {
+    "@angular/animations": "19.1.0",
+    "@angular/common": "19.1.0",
+    "@angular/compiler": "19.1.0",
+    "@angular/core": "19.1.0",
+    "@angular/forms": "19.1.0",
+    "@angular/platform-browser": "19.1.0",
+    "@angular/router": "19.1.0",
+    "@contoso/ui-components": "2.4.0",
+    "axios": "1.7.9",
+    "rxjs": "7.8.1",
+    "tslib": "2.8.1",
+    "zone.js": "0.15.0"
+  },
+  "devDependencies": {
+    "@angular/build": "19.1.0",
+    "@angular/cli": "19.1.0",
+    "@angular/compiler-cli": "19.1.0",
+    "eslint": "8.57.1",
+    "husky": "9.1.6",
+    "lint-staged": "15.2.10",
+    "prettier": "3.3.3",
+    "typescript": "5.7.2"
+  }
+}
