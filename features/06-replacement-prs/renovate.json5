@@ -1,0 +1,39 @@
+// Feature 06: Replacement PRs
+//
+// A replacement PR changes the name of a dependency, not only the version.
+// Renovate removes the old package and adds the new package in the same line.
+// Use it when a package is renamed, moved or deprecated in favor of another.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  // config:recommended extends 'replacements:all'. That preset holds the
+  // replacement rules that the Renovate maintainers keep, for example:
+  //   babel-eslint                 -> @babel/eslint-parser 7.11.0 (npm)
+  //   Spectre.Cli                  -> Spectre.Console.Cli 0.45.0 (NuGet)
+  //   k8s.gcr.io/<image>           -> registry.k8s.io/<image>    (Docker)
+  // The babel-eslint PR in this folder comes from that preset.
+  extends: ['config:recommended'],
+
+  labels: ['dependencies'],
+
+  packageRules: [
+    {
+      // An own replacement rule. 'replacements:all' has no rule for this
+      // package, so the repository adds it. The old package is deprecated on
+      // nuget.org, and the maintainers name Asp.Versioning.Mvc as the new one.
+      description: 'Replace the deprecated API versioning package',
+      matchDatasources: ['nuget'],
+      matchPackageNames: ['Microsoft.AspNetCore.Mvc.Versioning'],
+      replacementName: 'Asp.Versioning.Mvc',
+      // Without replacementVersion, Renovate keeps the current version
+      // (5.1.0). Asp.Versioning.Mvc 5.1.0 does not exist.
+      replacementVersion: '8.1.0',
+    },
+    {
+      // An extra label makes the replacement PRs easy to find.
+      // 'replacement' is an update type, like 'major' and 'patch'.
+      matchUpdateTypes: ['replacement'],
+      addLabels: ['replacement'],
+    },
+  ],
+}
