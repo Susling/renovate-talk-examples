@@ -1,0 +1,24 @@
+# Values for the orders chart. The keys under contoso-service go to the
+# contoso-service subchart.
+contoso-service:
+  nameOverride: orders-api
+  replicaCount: 3
+
+  image:
+    registry: contoso.azurecr.io
+    repository: orders-api
+    tag: 1.7.2
+    pullPolicy: IfNotPresent
+
+  imagePullSecrets:
+    - name: acr-pull
+
+  service:
+    port: 8080
+
+  env:
+    ASPNETCORE_ENVIRONMENT: Production
+    ConnectionStrings__Orders:
+      secretKeyRef:
+        name: orders-db
+        key: connection-string

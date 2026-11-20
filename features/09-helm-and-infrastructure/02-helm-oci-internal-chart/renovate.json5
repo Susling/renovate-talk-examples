@@ -1,0 +1,26 @@
+// Feature 09, part 2: an internal Helm chart in an OCI registry
+//
+// The helmv3 manager also reads a dependency with an 'oci://' repository.
+// For such a dependency, Renovate uses the docker datasource, because an
+// OCI registry is a container registry. So the host rule must have
+// hostType 'docker', not 'helm'.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  extends: ['config:recommended'],
+
+  labels: ['dependencies'],
+
+  hostRules: [
+    {
+      description: 'Read access to the Contoso Azure Container Registry',
+      hostType: 'docker',
+      matchHost: 'contoso.azurecr.io',
+      // A repository-scoped token in Azure Container Registry with read access.
+      username: 'renovate-pull',
+      // The value of ACR_PASSWORD is in the configuration of the Renovate
+      // installation. Never put the password itself in this file.
+      password: '{{ secrets.ACR_PASSWORD }}',
+    },
+  ],
+}

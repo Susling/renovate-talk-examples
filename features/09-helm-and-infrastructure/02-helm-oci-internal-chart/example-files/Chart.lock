@@ -1,0 +1,6 @@
+dependencies:
+- name: contoso-service
+  repository: oci://contoso.azurecr.io/helm
+  version: 1.4.2
+digest: sha256:b3d957820da15390feb283fb1ef3fd14edf47c7db237a3bd92bd2632b4cfd10f
+generated: "2024-12-03T14:02:17.590314806+01:00"

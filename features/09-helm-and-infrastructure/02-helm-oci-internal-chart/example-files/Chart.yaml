@@ -1,0 +1,9 @@
+apiVersion: v2
+name: orders
+description: Helm chart for the orders-api service
+type: application
+version: 1.12.0
+dependencies:
+  - name: contoso-service
+    version: 1.4.2
+    repository: oci://contoso.azurecr.io/helm
