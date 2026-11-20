@@ -1,0 +1,28 @@
+// Feature 05: Lock file maintenance
+//
+// A lock file (package-lock.json) records the exact version of every package,
+// also the transitive dependencies. A transitive dependency is a dependency of
+// a dependency. A normal Renovate update changes only the direct dependency
+// in package.json. Lock file maintenance creates the lock file again, so each
+// transitive dependency gets the newest version that its range allows.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['config:recommended'],
+
+  labels: ['dependencies'],
+
+  lockFileMaintenance: {
+    // The default is false. Lock file maintenance does not run without this line.
+    enabled: true,
+    // The default schedule is the same. The line makes it visible.
+    // Outside the schedule, the update waits in the Dependency Dashboard,
+    // in the section "Awaiting Schedule".
+    schedule: ['before 4am on monday'],
+    // The default recreateWhen is 'always'. If a person closes the PR
+    // without a merge, Renovate opens it again at the next schedule.
+  },
+
+  // The preset ':maintainLockFilesWeekly' gives almost the same result:
+  //   extends: ['config:recommended', ':maintainLockFilesWeekly'],
+  // It uses the cron schedule '* 0-3 * * 1' (00:00 to 03:59 on Monday).
+}

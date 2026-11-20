@@ -1,0 +1,34 @@
+// Feature 01: basic updates (patch, minor, major)
+//
+// This is the smallest useful configuration. Renovate finds every dependency
+// in package.json and *.csproj files without more configuration, because the
+// npm and nuget managers are on by default.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  // config:recommended is the preset that the Renovate onboarding PR suggests.
+  // It turns on the Dependency Dashboard, groups known monorepos
+  // (for example Angular and .NET), shows the Age and Confidence badges,
+  // and adds the community replacement rules.
+  extends: ['config:recommended'],
+
+  // Every Renovate PR gets this label.
+  labels: ['dependencies'],
+
+  packageRules: [
+    // One extra label per ecosystem, so the PR list can be filtered.
+    {
+      matchManagers: ['npm'],
+      addLabels: ['npm'],
+    },
+    {
+      matchManagers: ['nuget'],
+      addLabels: ['nuget'],
+    },
+    // A major update can break the build. The label makes it visible.
+    {
+      matchUpdateTypes: ['major'],
+      addLabels: ['major'],
+    },
+  ],
+}
