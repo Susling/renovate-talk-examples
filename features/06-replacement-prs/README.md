@@ -5,7 +5,7 @@ A replacement PR changes the name of a dependency, not only the version. If a pa
 | File | What it shows |
 |---|---|
 | [`renovate.json5`](renovate.json5) | The configuration: `config:recommended` with its replacement presets, and an own replacement rule for NuGet |
-| [`example-files/`](example-files/) | `package.json` and `.eslintrc.json` of `contoso-legacy-portal`, and three files of `contoso-api`, before the PRs |
+| [`example-files/`](example-files/) | `package.json` and `.eslintrc.json` of a React application, and three files of a .NET web API, before the PRs |
 | [`pull-requests/replace-babel-eslint.md`](pull-requests/replace-babel-eslint.md) | npm: `babel-eslint` to `@babel/eslint-parser`, from a preset |
 | [`pull-requests/replace-mvc-versioning.md`](pull-requests/replace-mvc-versioning.md) | NuGet: `Microsoft.AspNetCore.Mvc.Versioning` to `Asp.Versioning.Mvc`, from an own rule |
 | [`dependency-dashboard-deprecations.md`](dependency-dashboard-deprecations.md) | The section "Deprecations / Replacements" in the Dependency Dashboard |
@@ -89,7 +89,7 @@ Renovate changes the dependency files and the lock files. It does not change cod
 | PR | Renovate changed | A developer changed | The check that found it |
 |---|---|---|---|
 | `babel-eslint` | `package.json`, `package-lock.json` | `"parser"` in `.eslintrc.json` | lint |
-| `Microsoft.AspNetCore.Mvc.Versioning` | `Contoso.Api.csproj` | `using Asp.Versioning;` and `.AddMvc()` in two C# files | build |
+| `Microsoft.AspNetCore.Mvc.Versioning` | `WebApi.csproj` | `using Asp.Versioning;` and `.AddMvc()` in two C# files | build |
 
 For this reason, do not automerge replacement PRs. A green check is the only proof that the code still works with the new package.
 
@@ -101,7 +101,7 @@ These parts come from Renovate 44:
 - The presets and their package rules.
 - The Dependency Dashboard section and the badges.
 
-The source files are `lib/config/options/index.ts`, `lib/data/replacements.json`, `lib/workers/repository/process/lookup/utils.ts` and `lib/workers/repository/dependency-dashboard.ts`. The package data, the deprecation messages and the versions come from the npm registry and nuget.org on 2025-01-17. The repositories, the PR numbers, the build logs and the developer commits are fictional.
+The source files are `lib/config/options/index.ts`, `lib/data/replacements.json`, `lib/workers/repository/process/lookup/utils.ts` and `lib/workers/repository/dependency-dashboard.ts`. The package data, the deprecation messages and the versions come from the npm registry and nuget.org on 2025-01-17. The PR numbers, the build logs and the developer commits are fictional.
 
 ## Read more
 

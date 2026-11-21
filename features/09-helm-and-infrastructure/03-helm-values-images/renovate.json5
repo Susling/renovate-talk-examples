@@ -3,25 +3,15 @@
 // The helm-values manager is on by default. It finds every values.yaml file
 // and reads each object under a key that ends in 'image'. The object must
 // have 'repository' and 'tag' (or 'version'). 'registry' is optional.
-// The images are in a private registry, so Renovate needs a host rule.
+// The image podinfo is public on ghcr.io, so this configuration needs no
+// host rule. For a private registry, add a host rule with hostType 'docker'.
+// Part 2 shows one.
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
 
   extends: ['config:recommended'],
 
   labels: ['dependencies'],
-
-  hostRules: [
-    {
-      description: 'Read access to the Contoso Azure Container Registry',
-      hostType: 'docker',
-      matchHost: 'contoso.azurecr.io',
-      username: 'renovate-pull',
-      // The value of ACR_PASSWORD is in the configuration of the Renovate
-      // installation. Never put the password itself in this file.
-      password: '{{ secrets.ACR_PASSWORD }}',
-    },
-  ],
 
   // Optional: the values files of other environments, for example
   // values-production.yaml, do not match the default file pattern.

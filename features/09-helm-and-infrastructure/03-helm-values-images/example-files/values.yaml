@@ -1,24 +1,15 @@
-# Values for the orders chart. The keys under contoso-service go to the
-# contoso-service subchart.
-contoso-service:
-  nameOverride: orders-api
-  replicaCount: 3
+# Values for the demo-app chart. The keys under podinfo go to the
+# podinfo subchart from part 2.
+podinfo:
+  replicaCount: 2
 
   image:
-    registry: contoso.azurecr.io
-    repository: orders-api
-    tag: 1.7.2
+    repository: ghcr.io/stefanprodan/podinfo
+    tag: 6.7.0
     pullPolicy: IfNotPresent
 
-  imagePullSecrets:
-    - name: acr-pull
-
   service:
-    port: 8080
+    httpPort: 9898
 
-  env:
-    ASPNETCORE_ENVIRONMENT: Production
-    ConnectionStrings__Orders:
-      secretKeyRef:
-        name: orders-db
-        key: connection-string
+  ui:
+    message: "Hello from demo-app"

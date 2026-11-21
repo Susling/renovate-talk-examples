@@ -13,8 +13,11 @@
 
   packageRules: [
     {
-      description: 'Roll back internal packages when a version is deleted from GitHub Packages',
-      matchPackageNames: ['@contoso/**'],
+      // npm removed rc 1.2.9 on 2021-11-04, because the version had malware.
+      // In your own repository, a good match is a package from your own
+      // registry, where a person can delete a version.
+      description: 'Roll back rc when the registry no longer has the pinned version',
+      matchPackageNames: ['rc'],
       rollbackPrs: true,
     },
   ],
@@ -28,8 +31,4 @@
   rollback: {
     addLabels: ['rollback'],
   },
-
-  // Renovate reads the registry for the @contoso scope from .npmrc in the
-  // repository. The token for npm.pkg.github.com is in the configuration of
-  // the Renovate installation, not in this file.
 }

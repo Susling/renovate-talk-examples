@@ -38,7 +38,7 @@ Every configuration here starts with `extends: ['config:recommended']`. This pre
 | [`vulnerabilityAlerts`](https://docs.renovatebot.com/configuration-options/#vulnerabilityalerts) | object | `schedule: []`, `prCreation: 'immediate'`, `prConcurrentLimit: 0`, `commitMessageSuffix: '[SECURITY]'` | The options for security PRs | 07, app |
 | [`rollback`](https://docs.renovatebot.com/configuration-options/#rollback) | object | `commitMessageAction: 'Roll back'`, `semanticCommitType: 'fix'` | The options for rollback PRs | 08, app |
 | [`schedule`](https://docs.renovatebot.com/configuration-options/#schedule) | list | `['at any time']` | Renovate creates and updates branches only inside these times | 07. Also inside `lockFileMaintenance` |
-| [`hostRules`](https://docs.renovatebot.com/configuration-options/#hostrules) | list | none | Credentials for one host and one host type | 09.2, 09.3, infrastructure |
+| [`hostRules`](https://docs.renovatebot.com/configuration-options/#hostrules) | list | none | Credentials for one host and one host type | No configuration file. The README of 09.2 shows an example for a private registry |
 | [`customManagers`](https://docs.renovatebot.com/configuration-options/#custommanagers) | list | `[]` | Your own managers, for example with a regular expression | 09.4, infrastructure |
 | [`helm-values`](https://docs.renovatebot.com/modules/manager/helm-values/) | object | `managerFilePatterns` matches `values.yaml` | The options for the `helm-values` manager | 09.3, infrastructure |
 | [`kubernetes`](https://docs.renovatebot.com/modules/manager/kubernetes/) | object | `managerFilePatterns: []` | The options for the `kubernetes` manager | 09.5, infrastructure |
@@ -54,7 +54,7 @@ A package rule has match options and options to apply. All match options in one 
 | [`matchManagers`](https://docs.renovatebot.com/configuration-options/#matchmanagers) | Match | The manager, for example `npm`, `nuget` or `helmv3` | 01, 02, 09.1, app, infrastructure |
 | [`matchDatasources`](https://docs.renovatebot.com/configuration-options/#matchdatasources) | Match | The datasource, for example `nuget` | 06, app |
 | [`matchDepTypes`](https://docs.renovatebot.com/configuration-options/#matchdeptypes) | Match | The dependency type, for example `devDependencies` | 02, app |
-| [`matchPackageNames`](https://docs.renovatebot.com/configuration-options/#matchpackagenames) | Match | Exact names, glob patterns such as `@contoso/**`, or regular expressions | 02, 06, 08, app |
+| [`matchPackageNames`](https://docs.renovatebot.com/configuration-options/#matchpackagenames) | Match | Exact names, glob patterns such as `@angular/**`, or regular expressions | 02, 06, 08, app |
 | [`matchUpdateTypes`](https://docs.renovatebot.com/configuration-options/#matchupdatetypes) | Match | `major`, `minor`, `patch`, `replacement` and other update types | 01, 02, 03, 04, 06, app |
 | [`matchCurrentVersion`](https://docs.renovatebot.com/configuration-options/#matchcurrentversion) | Match | The current version. `'!/^0/'` excludes current versions that start with 0 | 03, app |
 | [`addLabels`](https://docs.renovatebot.com/configuration-options/#addlabels) | Apply | Adds labels to the labels of `labels`. Features 07 and 08 also use it in `vulnerabilityAlerts` and `rollback` | 01, 06, 07, 08, 09.1, app, infrastructure |

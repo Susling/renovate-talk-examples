@@ -1,6 +1,6 @@
 apiVersion: v2
-name: contoso-argocd
-description: Argo CD for the Contoso clusters, with the Contoso defaults
+name: argocd
+description: Argo CD for the clusters, with our own default values
 type: application
 version: 0.14.0
 dependencies:

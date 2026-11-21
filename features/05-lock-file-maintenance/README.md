@@ -85,7 +85,7 @@ These parts come from Renovate 44:
 - The 👻 Immortal line and the `"before 4am on monday"` schedule line.
 - The npm command. Also the result for a lock file without changes: no branch and no PR.
 
-The source files are `lib/config/options/index.ts`, `lib/workers/repository/update/pr/body/notes.ts` and `lib/modules/manager/npm/post-update/npm.ts`. The two lock files are real. npm 10 created them from the npm registry. The service, the PR number and the times are fictional.
+The source files are `lib/config/options/index.ts`, `lib/workers/repository/update/pr/body/notes.ts` and `lib/modules/manager/npm/post-update/npm.ts`. The two lock files are real. npm 10 created them from the npm registry. The PR number and the times are fictional.
 
 ## Read more
 

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Contoso.Api.Controllers;
+namespace WebApi.Controllers;
 
 // With Microsoft.AspNetCore.Mvc.Versioning 5.1.0, the attribute ApiVersion
 // is in the namespace Microsoft.AspNetCore.Mvc. With Asp.Versioning.Mvc 8.1.0,

@@ -1,0 +1,16 @@
+// Feature 09, part 2: a Helm chart in an OCI registry
+//
+// The helmv3 manager also reads a dependency with an 'oci://' repository.
+// For such a dependency, Renovate uses the docker datasource, because an
+// OCI registry is a container registry.
+//
+// The chart podinfo is public on ghcr.io, so this configuration needs no
+// host rule. For a private registry, add a host rule with hostType
+// 'docker', not 'helm'. The README of this part shows one.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  extends: ['config:recommended'],
+
+  labels: ['dependencies'],
+}

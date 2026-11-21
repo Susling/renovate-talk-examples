@@ -1,11 +1,11 @@
 # Update dependency typescript to v5.7.3
 
 > [!NOTE]
-> Illustrative pull request. The title, the branch name and the body format are what Renovate produces for this update. The release notes are the real notes from the TypeScript repository. The repository, the PR number, the times and the check results are fictional.
+> Illustrative pull request. The title, the branch name and the body format are what Renovate produces for this update. The release notes are the real notes from the TypeScript repository. The PR number, the times and the check results are fictional.
 
 | Field | Value |
 |---|---|
-| Repository | `contoso/contoso-web` (fictional) |
+| Repository | `Susling/renovate-talk-examples` |
 | Pull request | #416, opened by `renovate[bot]` on 2025-01-17 |
 | Status | Merged by `renovate[bot]` (GitHub auto-merge) |
 | Branch | `renovate/typescript-5.x` into `main` |
@@ -90,8 +90,8 @@ Nobody opened the PR. The developers see it only in the Git history and in the c
 ## Files changed (2)
 
 ```diff
---- a/package.json
-+++ b/package.json
+--- a/features/01-basic-updates/example-files/package.json
++++ b/features/01-basic-updates/example-files/package.json
 @@ -33,6 +33,6 @@
      "lint-staged": "15.2.10",
      "prettier": "3.3.3",
@@ -102,8 +102,8 @@ Nobody opened the PR. The developers see it only in the Git history and in the c
 ```
 
 ```diff
---- a/package-lock.json
-+++ b/package-lock.json
+--- a/features/01-basic-updates/example-files/package-lock.json
++++ b/features/01-basic-updates/example-files/package-lock.json
 @@ (shortened in this example)
      "node_modules/typescript": {
 -      "version": "5.7.2",

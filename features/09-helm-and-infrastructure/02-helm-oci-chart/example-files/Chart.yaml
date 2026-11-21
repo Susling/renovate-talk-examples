@@ -1,0 +1,9 @@
+apiVersion: v2
+name: demo-app
+description: Helm chart that installs podinfo as a subchart
+type: application
+version: 1.0.0
+dependencies:
+  - name: podinfo
+    version: 6.6.3
+    repository: oci://ghcr.io/stefanprodan/charts

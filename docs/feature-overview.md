@@ -19,8 +19,8 @@ This page compares the nine features on one page. Each row links to the page of 
 | Part | Manager | Built-in or custom | Works without configuration |
 |---|---|---|---|
 | [1. Helm chart dependencies](../features/09-helm-and-infrastructure/01-helm-chart-dependencies/README.md) | `helmv3` | Built-in | Yes |
-| [2. Internal chart in an OCI registry](../features/09-helm-and-infrastructure/02-helm-oci-internal-chart/README.md) | `helmv3` | Built-in | No. A private registry needs a host rule |
-| [3. Images in values.yaml](../features/09-helm-and-infrastructure/03-helm-values-images/README.md) | `helm-values` | Built-in | No. A private registry needs a host rule |
+| [2. A Helm chart in an OCI registry](../features/09-helm-and-infrastructure/02-helm-oci-chart/README.md) | `helmv3` | Built-in | Yes, for a public registry. A private registry needs a host rule |
+| [3. Images in values.yaml](../features/09-helm-and-infrastructure/03-helm-values-images/README.md) | `helm-values` | Built-in | Yes, for a public registry. A private registry needs a host rule |
 | [4. Custom regex manager](../features/09-helm-and-infrastructure/04-custom-regex-manager/README.md) | `regex` | Custom | No. You write the manager |
 | [5. Kubernetes manifests](../features/09-helm-and-infrastructure/05-kubernetes-manifests/README.md) | `kubernetes` | Built-in | No. You set `managerFilePatterns` |
 
@@ -45,10 +45,10 @@ Each example is a Markdown file, not a real PR. The labels column shows the labe
 | 06 | [Replace dependency Microsoft.AspNetCore.Mvc.Versioning with Asp.Versioning.Mvc v8.1.0](../features/06-replacement-prs/pull-requests/replace-mvc-versioning.md) | `dependencies` `replacement` |
 | 06 | [Dependency Dashboard: Deprecations / Replacements (issue section)](../features/06-replacement-prs/dependency-dashboard-deprecations.md) | None |
 | 07 | [Update dependency System.Text.Json to v8.0.5 [SECURITY]](../features/07-vulnerability-alerts/pull-requests/security-system-text-json.md) | `dependencies` `security` |
-| 08 | [Roll back dependency @contoso/ui-components to v2.3.2](../features/08-rollback-prs/pull-requests/rollback-contoso-ui-components.md) | `dependencies` `rollback` |
+| 08 | [Roll back dependency rc to v1.2.8](../features/08-rollback-prs/pull-requests/rollback-rc.md) | `dependencies` `rollback` |
 | 09.1 | [Update Helm release argo-cd to v7.7.16](../features/09-helm-and-infrastructure/01-helm-chart-dependencies/pull-requests/helm-argo-cd.md) | `dependencies` `helm` |
-| 09.2 | [Update contoso-service Docker tag to v1.5.0](../features/09-helm-and-infrastructure/02-helm-oci-internal-chart/pull-requests/helm-contoso-service.md) | `dependencies` |
-| 09.3 | [Update contoso.azurecr.io/orders-api Docker tag to v1.8.0](../features/09-helm-and-infrastructure/03-helm-values-images/pull-requests/image-orders-api.md) | `dependencies` |
+| 09.2 | [Update podinfo Docker tag to v6.7.1](../features/09-helm-and-infrastructure/02-helm-oci-chart/pull-requests/helm-podinfo.md) | `dependencies` |
+| 09.3 | [Update ghcr.io/stefanprodan/podinfo Docker tag to v6.7.1](../features/09-helm-and-infrastructure/03-helm-values-images/pull-requests/image-podinfo.md) | `dependencies` |
 | 09.4 | [Update dependency helm/helm to v3.17.0](../features/09-helm-and-infrastructure/04-custom-regex-manager/pull-requests/tool-helm.md) | `dependencies` |
 | 09.5 | [Update redis Docker tag to v7.4.2](../features/09-helm-and-infrastructure/05-kubernetes-manifests/pull-requests/image-redis.md) | `dependencies` |
 

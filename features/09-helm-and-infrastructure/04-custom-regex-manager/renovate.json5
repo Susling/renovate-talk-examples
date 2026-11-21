@@ -1,6 +1,6 @@
-// Feature 09, part 4: a custom regex manager for a company file format
+// Feature 09, part 4: a custom regex manager for your own file format
 //
-// No built-in manager knows the file deploy/contoso-deploy.yaml. A custom
+// No built-in manager knows the file deploy-tools.yaml. A custom
 // regex manager tells Renovate which files to read and where the
 // dependency is. A comment above each version gives the datasource and the
 // package name.
@@ -14,8 +14,8 @@
   customManagers: [
     {
       customType: 'regex',
-      description: 'Tool versions in the Contoso deploy files',
-      managerFilePatterns: ['/(^|/)contoso-deploy\\.ya?ml$/'],
+      description: 'Tool versions in deploy-tools.yaml files',
+      managerFilePatterns: ['/(^|/)deploy-tools\\.ya?ml$/'],
       // Matches two lines:
       //   # renovate: datasource=github-releases depName=helm/helm
       //   helm: v3.16.4
