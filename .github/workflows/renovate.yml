@@ -1,0 +1,35 @@
+# Runs Renovate on this repository every hour.
+# Renovate reads its configuration from renovate.json in the root.
+# The token is a fine-grained PAT in the repository secret RENOVATE_TOKEN.
+name: Renovate
+
+on:
+  schedule:
+    # Minute 0 of every hour, in UTC. GitHub can start a scheduled run some minutes late.
+    - cron: "0 * * * *"
+  # Adds the "Run workflow" button on the Actions tab.
+  workflow_dispatch:
+
+# Renovate uses the PAT, not GITHUB_TOKEN, so the job needs no GITHUB_TOKEN permissions.
+permissions: {}
+
+# A new run waits until the previous run is finished.
+concurrency:
+  group: renovate
+  cancel-in-progress: false
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v46.3.14
+        with:
+          # The same Renovate version as the examples and run-renovate.sh.
+          renovate-version: 44.247.1
+          token: ${{ secrets.RENOVATE_TOKEN }}
+        env:
+          RENOVATE_REPOSITORIES: ${{ github.repository }}
+          RENOVATE_GIT_AUTHOR: "Susling <18191356+Susling@users.noreply.github.com>"
+          LOG_LEVEL: info
