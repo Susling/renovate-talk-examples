@@ -64,7 +64,15 @@ A GitHub Actions workflow runs Renovate on this repository. These files control 
 | File | Contents |
 |---|---|
 | [`.github/workflows/renovate.yml`](.github/workflows/renovate.yml) | Runs Renovate 44.247.1 at minute 0 of every hour. The "Run workflow" button on the Actions tab starts a run at once. |
-| [`renovate.json`](renovate.json) | Turns on the Dependency Dashboard issue and removes the limit of 2 new PRs per hour. At most 10 Renovate PRs are open at the same time. |
+| [`renovate.json5`](renovate.json5) | The configuration of the run. It combines [`configs/renovate.app.json5`](configs/renovate.app.json5) and [`configs/renovate.infrastructure.json5`](configs/renovate.infrastructure.json5). Comments at the top of the file name the differences. |
+
+Renovate reads only `renovate.json5` in the root. The files `features/*/renovate.json5` and `configs/*.json5` have no effect on the run.
+
+Some examples cannot become real PRs:
+
+- Feature 07: Renovate reads the security alerts from Dependabot. If Dependabot alerts are off for the repository, Renovate opens no security PR.
+- Feature 03: the automerge PRs stay open, because the repository has no status checks. Renovate merges a PR after all its checks are green, and no check exists here.
+- Feature 08 and parts 2 and 3 of feature 09: the packages under `@contoso/` and the registry `contoso.azurecr.io` are fictional, so Renovate cannot look them up.
 
 The workflow reads the token from the repository secret `RENOVATE_TOKEN`. The token is a fine-grained personal access token (PAT) with access to this repository only. It has these permissions:
 
