@@ -26,7 +26,7 @@
   // The default is 2 new PRs per hour. 0 removes the limit.
   prHourlyLimit: 0,
 
-  // The default is 10 open PRs. A dry run on 2026-11-21 planned 18 PRs
+  // The default is 10 open PRs. A dry run on 2026-11-21 planned 23 PRs
   // without the major updates, which wait for approval. 25 lets all of
   // them open at the same time.
   prConcurrentLimit: 25,
