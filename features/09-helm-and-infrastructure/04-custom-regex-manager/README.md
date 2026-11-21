@@ -1,11 +1,11 @@
-# 09.4: A custom regex manager for a company file
+# 09.4: A custom regex manager for your own file format
 
-Some files have a format that only one company uses. No built-in manager reads them. A custom regex manager is a manager that you define in the configuration. It has a file pattern and a regular expression. The regular expression finds the dependency in the file. The example is `deploy/contoso-deploy.yaml`. It lists the versions of Helm and kubectl that the deploy job of Contoso installs.
+Some files have a format that only your own team uses. No built-in manager reads them. A custom regex manager is a manager that you define in the configuration. It has a file pattern and a regular expression. The regular expression finds the dependency in the file. The example is `deploy-tools.yaml`. It lists the versions of Helm and kubectl that a deploy job installs.
 
 | File | What it shows |
 |---|---|
 | [`renovate.json5`](renovate.json5) | The configuration: one custom regex manager |
-| [`example-files/contoso-deploy.yaml`](example-files/contoso-deploy.yaml) | `deploy/contoso-deploy.yaml` before the PR |
+| [`example-files/deploy-tools.yaml`](example-files/deploy-tools.yaml) | `deploy-tools.yaml` before the PR |
 | [`pull-requests/tool-helm.md`](pull-requests/tool-helm.md) | PR #76: `helm/helm` v3.16.4 to v3.17.0 |
 
 ## Built-in manager and custom regex manager
@@ -82,7 +82,9 @@ These parts come from Renovate 44 and GitHub:
 - The PR title, the branch name, the table and the release notes, also the heading `vv3.17.0`.
 - The release dates of Helm v3.17.0 and kubectl v1.32.1, and the release notes text.
 
-The source files are `lib/modules/manager/custom/regex/index.ts`, `lib/modules/manager/custom/regex/utils.ts` and `lib/workers/repository/update/pr/changelog/release-notes.ts`. The file format, the repository and the check are fictional.
+The source files are `lib/modules/manager/custom/regex/index.ts`, `lib/modules/manager/custom/regex/utils.ts` and `lib/workers/repository/update/pr/changelog/release-notes.ts`. The file format is an example for this repository. The PR number #76 and the check are fictional.
+
+The example PR is from 2025-01-17. Renovate runs on this repository every hour. If a newer Helm or Kubernetes release exists, Renovate opens a real PR for [`example-files/deploy-tools.yaml`](example-files/deploy-tools.yaml).
 
 ## Read more
 

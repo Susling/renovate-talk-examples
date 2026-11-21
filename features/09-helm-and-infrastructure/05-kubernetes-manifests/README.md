@@ -61,7 +61,7 @@ These parts come from Renovate 44 and Docker Hub:
 - The image search, the list of kinds for `kubernetes-api`, and the result for `Deployment` and `Service`.
 - The PR title, the branch name, the table and the release date of Redis 7.4.2.
 
-The source files are `lib/modules/manager/kubernetes/extract.ts`, `lib/modules/manager/kubernetes/index.ts` and `lib/data/kubernetes-api.json5`. The repository, the namespace and the check are fictional.
+The source files are `lib/modules/manager/kubernetes/extract.ts`, `lib/modules/manager/kubernetes/index.ts` and `lib/data/kubernetes-api.json5`. The PR number #77 and the check are fictional.
 
 ## Read more
 

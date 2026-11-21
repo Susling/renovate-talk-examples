@@ -1,4 +1,4 @@
-# Deploy settings for the contoso-platform pipeline.
+# Deploy settings for the deploy pipeline.
 # The deploy job installs these tool versions before it runs helm upgrade.
 release: orders
 chart: charts/orders
