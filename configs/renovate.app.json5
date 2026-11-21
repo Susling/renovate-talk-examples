@@ -71,10 +71,11 @@
       addLabels: ['replacement'],
     },
 
-    // Feature 08. Rollback PRs for internal packages only.
+    // Feature 08. Rollback PRs for rc only. npm removed rc 1.2.9 on
+    // 2021-11-04, because the version had malware.
     {
-      description: 'Roll back internal packages when a version is deleted from GitHub Packages',
-      matchPackageNames: ['@contoso/**'],
+      description: 'Roll back rc when the registry no longer has the pinned version',
+      matchPackageNames: ['rc'],
       rollbackPrs: true,
     },
   ],

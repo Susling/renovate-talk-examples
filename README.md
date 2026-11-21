@@ -17,8 +17,8 @@ The example PRs under `features/` are Markdown files, not real PRs. Renovate als
 | 05 | [Lock file maintenance](features/05-lock-file-maintenance/README.md) | [lock file maintenance](features/05-lock-file-maintenance/pull-requests/lock-file-maintenance.md) |
 | 06 | [Replacement PRs](features/06-replacement-prs/README.md) | [npm](features/06-replacement-prs/pull-requests/replace-babel-eslint.md), [NuGet](features/06-replacement-prs/pull-requests/replace-mvc-versioning.md), [dashboard section](features/06-replacement-prs/dependency-dashboard-deprecations.md) |
 | 07 | [Vulnerability alerts](features/07-vulnerability-alerts/README.md) | [security PR](features/07-vulnerability-alerts/pull-requests/security-system-text-json.md) |
-| 08 | [Rollback PRs](features/08-rollback-prs/README.md) | [rollback PR](features/08-rollback-prs/pull-requests/rollback-contoso-ui-components.md) |
-| 09 | [Helm and infrastructure](features/09-helm-and-infrastructure/README.md) | [Chart.yaml](features/09-helm-and-infrastructure/01-helm-chart-dependencies/pull-requests/helm-argo-cd.md), [OCI chart](features/09-helm-and-infrastructure/02-helm-oci-internal-chart/pull-requests/helm-contoso-service.md), [values.yaml](features/09-helm-and-infrastructure/03-helm-values-images/pull-requests/image-orders-api.md), [regex manager](features/09-helm-and-infrastructure/04-custom-regex-manager/pull-requests/tool-helm.md), [Kubernetes](features/09-helm-and-infrastructure/05-kubernetes-manifests/pull-requests/image-redis.md) |
+| 08 | [Rollback PRs](features/08-rollback-prs/README.md) | [rollback PR](features/08-rollback-prs/pull-requests/rollback-rc.md) |
+| 09 | [Helm and infrastructure](features/09-helm-and-infrastructure/README.md) | [Chart.yaml](features/09-helm-and-infrastructure/01-helm-chart-dependencies/pull-requests/helm-argo-cd.md), [OCI chart](features/09-helm-and-infrastructure/02-helm-oci-chart/pull-requests/helm-podinfo.md), [values.yaml](features/09-helm-and-infrastructure/03-helm-values-images/pull-requests/image-podinfo.md), [regex manager](features/09-helm-and-infrastructure/04-custom-regex-manager/pull-requests/tool-helm.md), [Kubernetes](features/09-helm-and-infrastructure/05-kubernetes-manifests/pull-requests/image-redis.md) |
 
 ## More pages
 
@@ -53,8 +53,8 @@ These parts are real:
 
 These parts are illustration:
 
-- The repositories under `contoso/`, the packages under `@contoso/` and the images in `contoso.azurecr.io` are fictional.
 - PR numbers, commit hashes, check names and check results are fictional.
+- The project names in the example files, for example `web-app` and `WebApi`. They are names for the example files in this repository.
 - The links to GitHub. On github.com, Renovate changes each link to `github.com` in the PR body to `redirect.github.com`. The redirect stops GitHub from adding a reference on the linked issue or PR. The examples show `github.com`, because those links are easier to read.
 
 ## Renovate in this repository
@@ -72,7 +72,6 @@ Some examples cannot become real PRs:
 
 - Feature 07: Renovate reads the security alerts from Dependabot. If Dependabot alerts are off for the repository, Renovate opens no security PR.
 - Feature 03: the automerge PRs stay open, because the repository has no status checks. Renovate merges a PR after all its checks are green, and no check exists here.
-- Feature 08 and parts 2 and 3 of feature 09: the packages under `@contoso/` and the registry `contoso.azurecr.io` are fictional, so Renovate cannot look them up.
 
 The workflow reads the token from the repository secret `RENOVATE_TOKEN`. The token is a fine-grained personal access token (PAT) with access to this repository only. It has these permissions:
 

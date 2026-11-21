@@ -1,5 +1,5 @@
 // A complete configuration for an infrastructure repository with Helm
-// charts, values files, Kubernetes manifests and a company deploy file.
+// charts, values files, Kubernetes manifests and a deploy-tools.yaml file.
 // It combines the five parts of feature 09.
 // Copy it to renovate.json5 in the root of the repository.
 {
@@ -8,21 +8,6 @@
   extends: ['config:recommended'],
 
   labels: ['dependencies'],
-
-  // Parts 2 and 3. Read access to the private registry. The docker
-  // datasource reads OCI charts and container images with this rule, and
-  // Renovate gives it to 'helm registry login' before 'helm dependency update'.
-  hostRules: [
-    {
-      description: 'Read access to the Contoso Azure Container Registry',
-      hostType: 'docker',
-      matchHost: 'contoso.azurecr.io',
-      username: 'renovate-pull',
-      // The value of ACR_PASSWORD is in the configuration of the Renovate
-      // installation. Never put the password itself in this file.
-      password: '{{ secrets.ACR_PASSWORD }}',
-    },
-  ],
 
   packageRules: [
     // Part 1. A label for the updates of Helm chart dependencies.
@@ -44,15 +29,15 @@
     managerFilePatterns: ['/(^|/)k8s/.+\\.ya?ml$/'],
   },
 
-  // Part 4. Tool versions in the Contoso deploy files. A comment above each
+  // Part 4. Tool versions in deploy-tools.yaml files. A comment above each
   // version gives the datasource and the package name:
   //   # renovate: datasource=github-releases depName=helm/helm
   //   helm: v3.16.4
   customManagers: [
     {
       customType: 'regex',
-      description: 'Tool versions in the Contoso deploy files',
-      managerFilePatterns: ['/(^|/)contoso-deploy\\.ya?ml$/'],
+      description: 'Tool versions in deploy-tools.yaml files',
+      managerFilePatterns: ['/(^|/)deploy-tools\\.ya?ml$/'],
       matchStrings: [
         '#\\s*renovate:\\s*datasource=(?<datasource>[a-z-]+)\\s+depName=(?<depName>\\S+)\\s*\\n\\s*[\\w-]+:\\s*(?<currentValue>\\S+)',
       ],
