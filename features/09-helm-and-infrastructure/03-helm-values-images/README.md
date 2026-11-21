@@ -1,12 +1,12 @@
 # 09.3: Container images in values.yaml
 
-A Helm chart usually takes the container image from `values.yaml`. The built-in manager `helm-values` reads that file and updates the image tags. The example is `charts/orders/values.yaml`. It sets the image `orders-api` from the private registry `contoso.azurecr.io` for the subchart `contoso-service` from [part 2](../02-helm-oci-internal-chart/README.md).
+A Helm chart usually takes the container image from `values.yaml`. The built-in manager `helm-values` reads that file and updates the image tags. The example is the `values.yaml` of the chart `demo-app` from [part 2](../02-helm-oci-chart/README.md). It sets the public image `ghcr.io/stefanprodan/podinfo` for the subchart `podinfo`.
 
 | File | What it shows |
 |---|---|
-| [`renovate.json5`](renovate.json5) | The configuration: a host rule for the registry, and an optional file pattern for more values files |
-| [`example-files/values.yaml`](example-files/values.yaml) | `charts/orders/values.yaml` before the PR |
-| [`pull-requests/image-orders-api.md`](pull-requests/image-orders-api.md) | PR #75: `contoso.azurecr.io/orders-api` 1.7.2 to 1.8.0 |
+| [`renovate.json5`](renovate.json5) | The configuration: an optional file pattern for more values files |
+| [`example-files/values.yaml`](example-files/values.yaml) | The `values.yaml` of `demo-app`, before the PR |
+| [`pull-requests/image-podinfo.md`](pull-requests/image-podinfo.md) | PR #75: `ghcr.io/stefanprodan/podinfo` 6.7.0 to 6.7.1 |
 
 ## How Renovate finds the image
 
@@ -17,8 +17,8 @@ flowchart TD
     B["helm-values reads every object<br/>also nested objects"]
     C{"Does the key end in 'image'<br/>and has the object 'repository'<br/>and 'tag' or 'version'?"}
     D["No dependency"]
-    E["Dependency contoso.azurecr.io/orders-api<br/>datasource docker"]
-    F["The docker datasource reads the tags<br/>with the host rule"]
+    E["Dependency ghcr.io/stefanprodan/podinfo<br/>datasource docker"]
+    F["The docker datasource<br/>reads the tags"]
     G["PR that changes the tag line"]
     A --> B --> C
     C -->|No| D
@@ -33,22 +33,26 @@ The key of the object must end in `image`, with any case. So `image`, `initImage
 
 | Field | Required | Value in the example |
 |---|---|---|
-| `repository` | Yes | `orders-api` |
-| `tag` or `version` | Yes | `1.7.2` |
-| `registry` | No | `contoso.azurecr.io` |
+| `repository` | Yes | `ghcr.io/stefanprodan/podinfo` |
+| `tag` or `version` | Yes | `6.7.0` |
+| `registry` | No | not set |
 
-Renovate joins `registry` and `repository` to the image name `contoso.azurecr.io/orders-api`. Without `registry`, the name is only `repository`, and the image comes from Docker Hub.
+If the object has `registry`, Renovate joins `registry` and `repository` to the image name. For example, `registry: ghcr.io` and `repository: stefanprodan/podinfo` give the same name as the example. Without `registry` and without a host in `repository`, the image comes from Docker Hub.
 
 The manager also reads two other shapes, and it skips the rest:
 
 | Shape in values.yaml | Result |
 |---|---|
-| `image: contoso.azurecr.io/orders-api:1.7.2` | A dependency. The string is a full image reference |
-| `image: orders-api` with `tag: 1.7.2` beside it | A dependency. The version comes from the key `tag` or `version` beside it |
-| `image: { name: orders-api, tag: 1.7.2 }` | No dependency. The object has no `repository` |
-| `api: { repository: orders-api, tag: 1.7.2 }` | No dependency. The key does not end in `image` |
+| `image: ghcr.io/stefanprodan/podinfo:6.7.0` | A dependency. The string is a full image reference |
+| `image: ghcr.io/stefanprodan/podinfo` with `tag: 6.7.0` beside it | A dependency. The version comes from the key `tag` or `version` beside it |
+| `image: { name: ghcr.io/stefanprodan/podinfo, tag: 6.7.0 }` | No dependency. The object has no `repository` |
+| `app: { repository: ghcr.io/stefanprodan/podinfo, tag: 6.7.0 }` | No dependency. The key does not end in `image` |
 
 For these shapes, use a custom regex manager. [Part 4](../04-custom-regex-manager/README.md) shows how.
+
+## A private registry
+
+The image podinfo is public, so this example needs no host rule. For an image in a private registry, Renovate needs a host rule with `hostType: 'docker'`. [Part 2](../02-helm-oci-chart/README.md) shows a host rule for ghcr.io. If your charts and your images are in the same registry, that one host rule covers both.
 
 ## More values files
 
@@ -59,10 +63,14 @@ Charts often have one values file for each environment, for example `values-prod
 These parts come from Renovate 44:
 
 - The default file pattern, the key rule and the fields of the object.
-- The image name with the registry, the datasource and the changed line.
-- The PR title, the branch name, the table, and the PR without release notes.
+- The image name, the datasource and the changed line.
+- The PR title, the branch name, the table, and the link and the release notes from the image label `org.opencontainers.image.source`.
 
-The source files are `lib/modules/manager/helm-values/extract.ts` and `lib/modules/manager/helm-values/util.ts`. The image, the registry and the repository are fictional.
+The source files are `lib/modules/manager/helm-values/extract.ts` and `lib/modules/manager/helm-values/util.ts`.
+
+The image podinfo, its versions, its label and its release notes are real. A lookup with Renovate 44.247.1 on 2026-11-21 found the branch name `renovate/ghcr.io-stefanprodan-podinfo-6.x` and the source URL `https://github.com/stefanprodan/podinfo`. The PR number #75 is fictional.
+
+The example PR is from 2025-01-17. On that day, 6.7.1 was the newest version. Renovate runs on this repository every hour, so it opens a real PR for [`example-files/values.yaml`](example-files/values.yaml). On 2026-11-21, that PR goes to 6.17.0.
 
 ## Read more
 

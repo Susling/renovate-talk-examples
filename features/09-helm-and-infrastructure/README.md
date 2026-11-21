@@ -1,13 +1,13 @@
 # 09: Helm and infrastructure
 
-Renovate also updates the files that deploy an application, not only the files that build it. This feature shows five kinds of infrastructure files. Four use a built-in manager. One uses a custom regex manager. All five PRs come from one fictional repository, `contoso/contoso-platform`, on 2025-01-17.
+Renovate also updates the files that deploy an application, not only the files that build it. This feature shows five kinds of infrastructure files. Four use a built-in manager. One uses a custom regex manager. All five example PRs are from this repository, `Susling/renovate-talk-examples`, on 2025-01-17.
 
 | Part | What it shows | PR |
 |---|---|---|
 | [1. Helm chart dependencies](01-helm-chart-dependencies/README.md) | A public chart in `Chart.yaml`, with `Chart.lock` | [Update Helm release argo-cd to v7.7.16](01-helm-chart-dependencies/pull-requests/helm-argo-cd.md) |
-| [2. Internal chart in an OCI registry](02-helm-oci-internal-chart/README.md) | An `oci://` chart in a private Azure Container Registry | [Update contoso-service Docker tag to v1.5.0](02-helm-oci-internal-chart/pull-requests/helm-contoso-service.md) |
-| [3. Images in values.yaml](03-helm-values-images/README.md) | An image from a private registry in `values.yaml` | [Update contoso.azurecr.io/orders-api Docker tag to v1.8.0](03-helm-values-images/pull-requests/image-orders-api.md) |
-| [4. Custom regex manager](04-custom-regex-manager/README.md) | Tool versions in a company deploy file | [Update dependency helm/helm to v3.17.0](04-custom-regex-manager/pull-requests/tool-helm.md) |
+| [2. Chart in an OCI registry](02-helm-oci-chart/README.md) | An `oci://` chart on ghcr.io in `Chart.yaml` | [Update podinfo Docker tag to v6.7.1](02-helm-oci-chart/pull-requests/helm-podinfo.md) |
+| [3. Images in values.yaml](03-helm-values-images/README.md) | An image from ghcr.io in `values.yaml` | [Update ghcr.io/stefanprodan/podinfo Docker tag to v6.7.1](03-helm-values-images/pull-requests/image-podinfo.md) |
+| [4. Custom regex manager](04-custom-regex-manager/README.md) | Tool versions in a deploy file | [Update dependency helm/helm to v3.17.0](04-custom-regex-manager/pull-requests/tool-helm.md) |
 | [5. Kubernetes manifests](05-kubernetes-manifests/README.md) | An image in a plain Deployment | [Update redis Docker tag to v7.4.2](05-kubernetes-manifests/pull-requests/image-redis.md) |
 
 ## Built-in managers and the custom regex manager
@@ -34,7 +34,7 @@ flowchart TD
     C["values.yaml<br/>image object"] --> D
     E["k8s/redis.yaml<br/>image: line"] --> D
     E --> K["kubernetes-api datasource<br/>list in Renovate"]
-    F["contoso-deploy.yaml<br/>regex match"] --> G["github-releases datasource<br/>releases on GitHub"]
+    F["deploy-tools.yaml<br/>regex match"] --> G["github-releases datasource<br/>releases on GitHub"]
 ```
 
 ## One configuration for all parts
