@@ -1,5 +1,5 @@
 # Runs Renovate on this repository every hour.
-# Renovate reads its configuration from renovate.json in the root.
+# Renovate reads its configuration from renovate.json5 in the root.
 # The token is a fine-grained PAT in the repository secret RENOVATE_TOKEN.
 name: Renovate
 

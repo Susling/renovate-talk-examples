@@ -1,0 +1,145 @@
+// The configuration that Renovate uses on this repository.
+// Renovate reads only this file. It does not read the files under configs/
+// or features/*/renovate.json5.
+//
+// This file combines configs/renovate.app.json5 (features 01 to 08) and
+// configs/renovate.infrastructure.json5 (feature 09), with three changes
+// for this repository:
+// - prHourlyLimit is 0 and prConcurrentLimit is 25, so one run can open
+//   all PRs at once.
+// - The kubernetes manager reads the folder of feature 09, part 5, not k8s/.
+// - No hostRules for contoso.azurecr.io. The registry is fictional, and the
+//   secret ACR_PASSWORD does not exist here.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  // Feature 01. The preset also turns on the Dependency Dashboard (04),
+  // the monorepo groups (02) and the replacement presets (06).
+  extends: ['config:recommended'],
+
+  // Every Renovate PR gets this label.
+  labels: ['dependencies'],
+
+  // Feature 04. Pin the Dependency Dashboard issue on top of the issue list.
+  dependencyDashboard: {
+    pinned: true,
+  },
+
+  // The default is 2 new PRs per hour. 0 removes the limit.
+  prHourlyLimit: 0,
+
+  // The default is 10 open PRs. A dry run on 2026-11-21 planned 18 PRs
+  // without the major updates, which wait for approval. 25 lets all of
+  // them open at the same time.
+  prConcurrentLimit: 25,
+
+  packageRules: [
+    // Feature 01. One label per ecosystem, and one for major updates.
+    {
+      matchManagers: ['npm'],
+      addLabels: ['npm'],
+    },
+    {
+      matchManagers: ['nuget'],
+      addLabels: ['nuget'],
+    },
+    {
+      matchUpdateTypes: ['major'],
+      addLabels: ['major'],
+    },
+
+    // Feature 02. A custom group.
+    {
+      description: 'Put the npm tools for formatting and Git hooks in one PR',
+      matchManagers: ['npm'],
+      matchDepTypes: ['devDependencies'],
+      matchPackageNames: ['prettier', 'lint-staged', 'husky'],
+      matchUpdateTypes: ['minor', 'patch'],
+      groupName: 'npm dev tooling',
+    },
+
+    // Feature 03. Automerge for patch updates, approval for major updates.
+    // This repository has no status checks, so Renovate never sees a green
+    // branch and does not merge these PRs.
+    {
+      description: 'Automerge patch updates after all checks pass',
+      matchUpdateTypes: ['patch'],
+      matchCurrentVersion: '!/^0/',
+      automerge: true,
+    },
+    {
+      description: 'A person must approve each major update in the Dependency Dashboard',
+      matchUpdateTypes: ['major'],
+      dependencyDashboardApproval: true,
+    },
+
+    // Feature 06. An own replacement rule, and a label for all replacements.
+    {
+      description: 'Replace the deprecated API versioning package',
+      matchDatasources: ['nuget'],
+      matchPackageNames: ['Microsoft.AspNetCore.Mvc.Versioning'],
+      replacementName: 'Asp.Versioning.Mvc',
+      replacementVersion: '8.1.0',
+    },
+    {
+      matchUpdateTypes: ['replacement'],
+      addLabels: ['replacement'],
+    },
+
+    // Feature 08. Rollback PRs for internal packages only.
+    {
+      description: 'Roll back internal packages when a version is deleted from GitHub Packages',
+      matchPackageNames: ['@contoso/**'],
+      rollbackPrs: true,
+    },
+
+    // Feature 09, part 1. A label for the updates of Helm chart dependencies.
+    {
+      description: 'Label the updates of Helm chart dependencies',
+      matchManagers: ['helmv3'],
+      addLabels: ['helm'],
+    },
+  ],
+
+  // Feature 05. A new lock file each Monday before 04:00 UTC.
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: ['before 4am on monday'],
+  },
+
+  // Feature 07. Security PRs ignore the schedule and the PR limits.
+  // Renovate reads the alerts from GitHub, so Dependabot alerts must be on
+  // for this repository.
+  vulnerabilityAlerts: {
+    addLabels: ['security'],
+  },
+
+  // Feature 08. A label for rollback PRs.
+  rollback: {
+    addLabels: ['rollback'],
+  },
+
+  // Feature 09, part 3. The values files of all environments.
+  'helm-values': {
+    managerFilePatterns: ['/(^|/)values(-[a-z]+)?\\.ya?ml$/'],
+  },
+
+  // Feature 09, part 5. The kubernetes manager has no default pattern.
+  // The example manifests are in the folder of part 5.
+  kubernetes: {
+    managerFilePatterns: ['/(^|/)05-kubernetes-manifests/example-files/.+\\.ya?ml$/'],
+  },
+
+  // Feature 09, part 4. Tool versions in the Contoso deploy files. A comment
+  // above each version gives the datasource and the package name.
+  customManagers: [
+    {
+      customType: 'regex',
+      description: 'Tool versions in the Contoso deploy files',
+      managerFilePatterns: ['/(^|/)contoso-deploy\\.ya?ml$/'],
+      matchStrings: [
+        '#\\s*renovate:\\s*datasource=(?<datasource>[a-z-]+)\\s+depName=(?<depName>\\S+)\\s*\\n\\s*[\\w-]+:\\s*(?<currentValue>\\S+)',
+      ],
+    },
+  ],
+}
