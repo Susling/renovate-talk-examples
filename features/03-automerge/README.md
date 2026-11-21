@@ -5,11 +5,26 @@ Automerge means that Renovate merges an update without a person, after all statu
 | File | What it shows |
 |---|---|
 | [`renovate.json5`](renovate.json5) | The configuration, with the automerge defaults written out |
-| [`pull-requests/automerge-typescript-patch.md`](pull-requests/automerge-typescript-patch.md) | Patch update that merges automatically |
-| [`pull-requests/automerge-blocked-by-failing-check.md`](pull-requests/automerge-blocked-by-failing-check.md) | Patch group that does not merge, because a test fails |
+| [`example-files/merged/package.json`](example-files/merged/package.json) | The npm package `clsx` 2.1.0. Its patch PR merges automatically |
+| [`example-files/blocked/package.json`](example-files/blocked/package.json) | The npm package `dayjs` 1.11.12. Its patch PR does not merge, because a check fails |
+| [`pull-requests/automerge-clsx-patch.md`](pull-requests/automerge-clsx-patch.md) | Patch update that merges automatically |
+| [`pull-requests/automerge-blocked-by-failing-check.md`](pull-requests/automerge-blocked-by-failing-check.md) | Patch update that does not merge, because a test fails |
 | [`pull-requests/major-after-approval-serilog.md`](pull-requests/major-after-approval-serilog.md) | Major update that waits for approval, then gets a normal PR |
 
-The dependency files are the same as in feature 01: [`package.json`](../01-basic-updates/example-files/package.json) and [`WebApi.csproj`](../01-basic-updates/example-files/WebApi.csproj).
+The major update for Serilog.AspNetCore changes the file [`WebApi.csproj`](../01-basic-updates/example-files/WebApi.csproj) of feature 01.
+
+## The checks for the example files
+
+The workflow [`.github/workflows/automerge-example.yml`](../../.github/workflows/automerge-example.yml) runs on each PR that changes a file under `example-files/`. It has two jobs:
+
+| Job | Result |
+|---|---|
+| `test (clsx)` | Passes. Renovate merges the PR for `clsx` |
+| `test (dayjs)` | Fails for each version of `dayjs` other than 1.11.12. The PR for `dayjs` stays open |
+
+The failure of `test (dayjs)` is an illustration. The job does not test the code of dayjs. It fails on purpose, so that the repository shows a PR that automerge does not merge.
+
+The two package names are in no other file of this repository and in no group. Thus each update gets its own PR, and the automerge rule changes no PR of another feature.
 
 ## What happens to each update type
 
@@ -47,7 +62,12 @@ Automerge often goes together with `minimumReleaseAge`, for example `minimumRele
 
 ## Real behavior and illustration
 
-The lines `🚦 Automerge: Enabled.` and `Disabled by config` and the dashboard checkbox are what Renovate 44 writes. The timelines, the failed test and the PR numbers are fictional.
+The lines `🚦 Automerge: Enabled.` and `Disabled by config` and the dashboard checkbox are what Renovate 44 writes. The check names are the names of the jobs in `automerge-example.yml`. The timelines and the PR numbers are fictional.
+
+The example PRs use the configuration of this folder, with `platformAutomerge: true`. The configuration of this repository, [`renovate.json5`](../../renovate.json5) in the root, is different in two places:
+
+- The automerge rule has `matchFileNames: ['features/03-automerge/**']`. Only the PRs for the files of this feature merge automatically.
+- The rule has `platformAutomerge: false`, because GitHub auto-merge is off for this repository. Renovate merges the PR for `clsx` in the next hourly run after the checks pass.
 
 ## Read more
 

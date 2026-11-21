@@ -57,11 +57,12 @@ A package rule has match options and options to apply. All match options in one 
 | [`matchPackageNames`](https://docs.renovatebot.com/configuration-options/#matchpackagenames) | Match | Exact names, glob patterns such as `@angular/**`, or regular expressions | 02, 06, 08, app |
 | [`matchUpdateTypes`](https://docs.renovatebot.com/configuration-options/#matchupdatetypes) | Match | `major`, `minor`, `patch`, `replacement` and other update types | 01, 02, 03, 04, 06, app |
 | [`matchCurrentVersion`](https://docs.renovatebot.com/configuration-options/#matchcurrentversion) | Match | The current version. `'!/^0/'` excludes current versions that start with 0 | 03, app |
+| [`matchFileNames`](https://docs.renovatebot.com/configuration-options/#matchfilenames) | Match | The path of the dependency file, as a glob pattern such as `features/03-automerge/**` | The root `renovate.json5` only |
 | [`addLabels`](https://docs.renovatebot.com/configuration-options/#addlabels) | Apply | Adds labels to the labels of `labels`. Features 07 and 08 also use it in `vulnerabilityAlerts` and `rollback` | 01, 06, 07, 08, 09.1, app, infrastructure |
 | [`groupName`](https://docs.renovatebot.com/configuration-options/#groupname) | Apply | Puts the matched updates in one branch and one PR | 02, 04, app |
 | [`automerge`](https://docs.renovatebot.com/configuration-options/#automerge) | Apply | Default `false`. Merges the PR after all checks pass | 03, app |
 | [`automergeType`](https://docs.renovatebot.com/configuration-options/#automergetype) | Apply | Default `'pr'`. `'branch'` merges without a PR | 03 |
-| [`platformAutomerge`](https://docs.renovatebot.com/configuration-options/#platformautomerge) | Apply | Default `true`. GitHub merges the PR, not the next Renovate run | 03 |
+| [`platformAutomerge`](https://docs.renovatebot.com/configuration-options/#platformautomerge) | Apply | Default `true`. GitHub merges the PR, not the next Renovate run | 03. The root `renovate.json5` sets `false` |
 | [`ignoreTests`](https://docs.renovatebot.com/configuration-options/#ignoretests) | Apply | Default `false`. `true` merges without passing checks | 03 |
 | [`dependencyDashboardApproval`](https://docs.renovatebot.com/configuration-options/#dependencydashboardapproval) | Apply | Default `false`. A person must select the update in the dashboard first | 03, 04, app |
 | [`replacementName`](https://docs.renovatebot.com/configuration-options/#replacementname) | Apply | The new package name | 06, app |

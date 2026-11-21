@@ -36,8 +36,8 @@ Each example is a Markdown file, not a real PR. The labels column shows the labe
 | 02 | [Update angular monorepo to v19.1.1](../features/02-grouping/pull-requests/group-angular-monorepo.md) | `dependencies` |
 | 02 | [Update dotnet monorepo to v9.0.1](../features/02-grouping/pull-requests/group-dotnet-monorepo.md) | `dependencies` |
 | 02 | [Update npm dev tooling](../features/02-grouping/pull-requests/group-npm-dev-tooling.md) | `dependencies` |
-| 03 | [Update dependency typescript to v5.7.3](../features/03-automerge/pull-requests/automerge-typescript-patch.md) | `dependencies` |
-| 03 | [Update dotnet monorepo to v9.0.1 (automerge blocked)](../features/03-automerge/pull-requests/automerge-blocked-by-failing-check.md) | `dependencies` |
+| 03 | [Update dependency clsx to v2.1.1](../features/03-automerge/pull-requests/automerge-clsx-patch.md) | `dependencies` |
+| 03 | [Update dependency dayjs to v1.11.13 (automerge blocked)](../features/03-automerge/pull-requests/automerge-blocked-by-failing-check.md) | `dependencies` |
 | 03 | [Update dependency Serilog.AspNetCore to v9](../features/03-automerge/pull-requests/major-after-approval-serilog.md) | `dependencies` |
 | 04 | [Dependency Dashboard (issue)](../features/04-dependency-dashboard/dependency-dashboard-issue.md) | None |
 | 05 | [Lock file maintenance](../features/05-lock-file-maintenance/pull-requests/lock-file-maintenance.md) | `dependencies` |
