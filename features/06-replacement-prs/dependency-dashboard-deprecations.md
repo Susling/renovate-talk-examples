@@ -1,7 +1,7 @@
 # Dependency Dashboard: Deprecations / Replacements
 
 > [!NOTE]
-> Illustrative issue sections. The section title, the warning text, the table format and the badges are what Renovate 44 writes. The source file is `lib/workers/repository/dependency-dashboard.ts`. The repositories are fictional. The package data comes from the npm registry and nuget.org.
+> Illustrative issue sections. The section title, the warning text, the table format and the badges are what Renovate 44 writes. The source file is `lib/workers/repository/dependency-dashboard.ts`. The package data comes from the npm registry and nuget.org.
 
 [Feature 04](../04-dependency-dashboard/README.md) shows the Dependency Dashboard. Renovate adds the section "Deprecations / Replacements" to it for each dependency that matches one of these conditions:
 
@@ -10,7 +10,7 @@
 
 The section comes near the top of the issue, before "Pending Approval".
 
-## `contoso-legacy-portal`
+## The React application
 
 The text between the two lines is the section that Renovate writes.
 
@@ -29,7 +29,7 @@ The text between the two lines is the section that Renovate writes.
 
 `babel-eslint` is deprecated on the npm registry, and the preset `replacements:babel-eslint-to-eslint-parser` matches it. "Available" means that Renovate has a replacement update for the package. The PR is [`pull-requests/replace-babel-eslint.md`](pull-requests/replace-babel-eslint.md).
 
-## `contoso-api`, before and after the package rule
+## The .NET web API, before and after the package rule
 
 Before the repository added its own package rule, the section looked like this:
 

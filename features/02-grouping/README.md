@@ -5,8 +5,8 @@ A group puts several updates in one branch and one pull request (PR). Without a 
 | File | What it shows |
 |---|---|
 | [`renovate.json5`](renovate.json5) | The configuration, with one custom group |
-| [`example-files/Contoso.Api.csproj`](example-files/Contoso.Api.csproj) | `contoso-api` before the updates (NuGet) |
-| [`example-files/package.json`](example-files/package.json) | `contoso-web` before the updates (npm) |
+| [`example-files/WebApi.csproj`](example-files/WebApi.csproj) | A .NET web API before the updates (NuGet) |
+| [`example-files/package.json`](example-files/package.json) | A web application before the updates (npm) |
 | [`pull-requests/group-dotnet-monorepo.md`](pull-requests/group-dotnet-monorepo.md) | Built-in monorepo group, NuGet |
 | [`pull-requests/group-angular-monorepo.md`](pull-requests/group-angular-monorepo.md) | Built-in monorepo group, npm |
 | [`pull-requests/group-npm-dev-tooling.md`](pull-requests/group-npm-dev-tooling.md) | Custom group from `groupName` |
@@ -42,7 +42,7 @@ If one package in the group fails a check, the full PR fails. A large group ther
 
 ## Real behavior and illustration
 
-The group names, branch names, titles and the `👻 Immortal` line are what Renovate 44 produces. The `dotnet monorepo` and `angular monorepo` rules are real entries in the Renovate preset `group:monorepos`. The repositories, PR numbers and check results are fictional.
+The group names, branch names, titles and the `👻 Immortal` line are what Renovate 44 produces. The `dotnet monorepo` and `angular monorepo` rules are real entries in the Renovate preset `group:monorepos`. The PR numbers and check results are fictional.
 
 ## Read more
 

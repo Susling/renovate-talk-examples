@@ -5,8 +5,8 @@ Renovate reads the dependency files in a repository, asks each registry for newe
 | File | What it shows |
 |---|---|
 | [`renovate.json5`](renovate.json5) | The configuration for this example |
-| [`example-files/package.json`](example-files/package.json) | `contoso-web` before the updates (npm) |
-| [`example-files/Contoso.Api.csproj`](example-files/Contoso.Api.csproj) | `contoso-api` before the updates (NuGet) |
+| [`example-files/package.json`](example-files/package.json) | A web application before the updates (npm) |
+| [`example-files/WebApi.csproj`](example-files/WebApi.csproj) | A .NET web API before the updates (NuGet) |
 | [`pull-requests/patch-serilog-aspnetcore.md`](pull-requests/patch-serilog-aspnetcore.md) | Patch PR, NuGet |
 | [`pull-requests/minor-prettier.md`](pull-requests/minor-prettier.md) | Minor PR, npm |
 | [`pull-requests/major-eslint.md`](pull-requests/major-eslint.md) | Major PR, npm, with a failed check |
@@ -50,7 +50,7 @@ The titles have no `chore(deps):` prefix. The `semanticCommits` option is `auto`
 
 ## Real behavior and illustration
 
-The PR titles, branch names, table format and the configuration text are what Renovate 44 produces. The release notes come from the real GitHub releases. The repositories `contoso-api` and `contoso-web`, the PR numbers and the check results are fictional.
+The PR titles, branch names, table format and the configuration text are what Renovate 44 produces. The release notes come from the real GitHub releases. The PR numbers and the check results are fictional.
 
 ## Read more
 

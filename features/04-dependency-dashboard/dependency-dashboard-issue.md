@@ -1,11 +1,11 @@
 # Dependency Dashboard
 
 > [!NOTE]
-> Illustrative issue. The section titles, the section texts, the checkbox format and the "Detected Dependencies" format are what Renovate 44 writes. The repository, the issue number, the PR numbers and the developer actions are fictional. The dependencies are the real versions on 2025-01-17. Renovate writes the PR links as relative links, for example `../pull/415`. These links open the PR in a real issue, but not in this repository.
+> Illustrative issue. The section titles, the section texts, the checkbox format and the "Detected Dependencies" format are what Renovate 44 writes. The issue number, the PR numbers and the developer actions are fictional. The dependencies are the real versions on 2025-01-17. Renovate writes the PR links as relative links, for example `../pull/415`. These links open the PR in a real issue, but not in this repository.
 
 | Field | Value |
 |---|---|
-| Repository | `contoso/contoso-web` (fictional) |
+| Repository | `Susling/renovate-talk-examples` |
 | Issue | #388, opened by `renovate[bot]`, pinned |
 | Labels | None. The option `dependencyDashboard.labels` is not set |
 | Updated | 2025-01-17, 08:02 UTC, in each Renovate run |

@@ -9,7 +9,7 @@ Automerge means that Renovate merges an update without a person, after all statu
 | [`pull-requests/automerge-blocked-by-failing-check.md`](pull-requests/automerge-blocked-by-failing-check.md) | Patch group that does not merge, because a test fails |
 | [`pull-requests/major-after-approval-serilog.md`](pull-requests/major-after-approval-serilog.md) | Major update that waits for approval, then gets a normal PR |
 
-The dependency files are the same as in feature 01: [`package.json`](../01-basic-updates/example-files/package.json) and [`Contoso.Api.csproj`](../01-basic-updates/example-files/Contoso.Api.csproj).
+The dependency files are the same as in feature 01: [`package.json`](../01-basic-updates/example-files/package.json) and [`WebApi.csproj`](../01-basic-updates/example-files/WebApi.csproj).
 
 ## What happens to each update type
 
