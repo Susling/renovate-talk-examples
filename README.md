@@ -4,7 +4,7 @@ This repository holds the examples for a talk.
 
 The talk is about [Renovate](https://docs.renovatebot.com/). Renovate is a bot that finds outdated dependencies and opens pull requests (PRs) that update them. Each feature has a commented configuration, example files and example PRs with an explanation.
 
-This repository is not a working Renovate setup. Renovate does not run here. The example PRs are Markdown files, not real PRs.
+The example PRs under `features/` are Markdown files, not real PRs. Renovate also runs on this repository every hour and opens real PRs for the files under `features/*/example-files/`. The section [Renovate in this repository](#renovate-in-this-repository) explains the setup.
 
 ## Features
 
@@ -57,6 +57,20 @@ These parts are illustration:
 - PR numbers, commit hashes, check names and check results are fictional.
 - The links to GitHub. On github.com, Renovate changes each link to `github.com` in the PR body to `redirect.github.com`. The redirect stops GitHub from adding a reference on the linked issue or PR. The examples show `github.com`, because those links are easier to read.
 
-## Not in this repository
+## Renovate in this repository
 
-There is no Docker setup, no CI and no automation. To run Renovate, read [Renovate docs: getting started](https://docs.renovatebot.com/getting-started/running/).
+A GitHub Actions workflow runs Renovate on this repository. These files control the run:
+
+| File | Contents |
+|---|---|
+| [`.github/workflows/renovate.yml`](.github/workflows/renovate.yml) | Runs Renovate 44.247.1 at minute 0 of every hour. The "Run workflow" button on the Actions tab starts a run at once. |
+| [`renovate.json`](renovate.json) | Turns on the Dependency Dashboard issue and removes the limit of 2 new PRs per hour. At most 10 Renovate PRs are open at the same time. |
+
+The workflow reads the token from the repository secret `RENOVATE_TOKEN`. The token is a fine-grained personal access token (PAT) with access to this repository only. It has these permissions:
+
+- Read and write: Commit statuses, Contents, Issues, Pull requests and Workflows.
+- Read-only: Dependabot alerts.
+
+The real PRs are not the same as the example PRs. The files under `example-files/` have the versions from 2025-01-17, so a real PR updates to the newest version on the day of the run.
+
+There is no Docker setup in this repository. To run Renovate in another way, read [Renovate docs: getting started](https://docs.renovatebot.com/getting-started/running/).
