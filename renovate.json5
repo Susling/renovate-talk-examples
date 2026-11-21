@@ -3,10 +3,12 @@
 // or features/*/renovate.json5.
 //
 // This file combines configs/renovate.app.json5 (features 01 to 08) and
-// configs/renovate.infrastructure.json5 (feature 09), with two changes
+// configs/renovate.infrastructure.json5 (feature 09), with three changes
 // for this repository:
-// - prHourlyLimit is 0 and prConcurrentLimit is 25, so one run can open
+// - prHourlyLimit is 0 and prConcurrentLimit is 30, so one run can open
 //   all PRs at once.
+// - Automerge applies only to the files of feature 03, not to all patch
+//   updates.
 // - The kubernetes manager reads the folder of feature 09, part 5, not k8s/.
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
@@ -26,10 +28,10 @@
   // The default is 2 new PRs per hour. 0 removes the limit.
   prHourlyLimit: 0,
 
-  // The default is 10 open PRs. A dry run on 2026-11-21 planned 23 PRs
-  // without the major updates, which wait for approval. 25 lets all of
+  // The default is 10 open PRs. A dry run on 2026-11-21 planned 25 PRs
+  // without the major updates, which wait for approval. 30 lets all of
   // them open at the same time.
-  prConcurrentLimit: 25,
+  prConcurrentLimit: 30,
 
   packageRules: [
     // Feature 01. One label per ecosystem, and one for major updates.
@@ -57,13 +59,19 @@
     },
 
     // Feature 03. Automerge for patch updates, approval for major updates.
-    // This repository has no status checks, so Renovate never sees a green
-    // branch and does not merge these PRs.
+    // Automerge applies only to the files of feature 03. The workflow
+    // .github/workflows/automerge-example.yml gives their PRs a green check
+    // for clsx and a red check for dayjs. The patch PRs of the other
+    // features stay open for a person.
+    // This repository has GitHub auto-merge off, so Renovate merges the PR
+    // itself in a later run, after it reads the checks.
     {
-      description: 'Automerge patch updates after all checks pass',
+      description: 'Automerge patch updates in the files of feature 03 only',
+      matchFileNames: ['features/03-automerge/**'],
       matchUpdateTypes: ['patch'],
       matchCurrentVersion: '!/^0/',
       automerge: true,
+      platformAutomerge: false,
     },
     {
       description: 'A person must approve each major update in the Dependency Dashboard',

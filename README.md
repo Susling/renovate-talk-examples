@@ -12,7 +12,7 @@ The example PRs under `features/` are Markdown files, not real PRs. Renovate als
 |---|---|---|
 | 01 | [Basic updates](features/01-basic-updates/README.md) | [patch](features/01-basic-updates/pull-requests/patch-serilog-aspnetcore.md), [minor](features/01-basic-updates/pull-requests/minor-prettier.md), [major](features/01-basic-updates/pull-requests/major-eslint.md) |
 | 02 | [Grouping](features/02-grouping/README.md) | [Angular](features/02-grouping/pull-requests/group-angular-monorepo.md), [.NET](features/02-grouping/pull-requests/group-dotnet-monorepo.md), [own group](features/02-grouping/pull-requests/group-npm-dev-tooling.md) |
-| 03 | [Automerge](features/03-automerge/README.md) | [merged](features/03-automerge/pull-requests/automerge-typescript-patch.md), [blocked by a check](features/03-automerge/pull-requests/automerge-blocked-by-failing-check.md), [major after approval](features/03-automerge/pull-requests/major-after-approval-serilog.md) |
+| 03 | [Automerge](features/03-automerge/README.md) | [merged](features/03-automerge/pull-requests/automerge-clsx-patch.md), [blocked by a check](features/03-automerge/pull-requests/automerge-blocked-by-failing-check.md), [major after approval](features/03-automerge/pull-requests/major-after-approval-serilog.md) |
 | 04 | [Dependency Dashboard](features/04-dependency-dashboard/README.md) | [the issue](features/04-dependency-dashboard/dependency-dashboard-issue.md) |
 | 05 | [Lock file maintenance](features/05-lock-file-maintenance/README.md) | [lock file maintenance](features/05-lock-file-maintenance/pull-requests/lock-file-maintenance.md) |
 | 06 | [Replacement PRs](features/06-replacement-prs/README.md) | [npm](features/06-replacement-prs/pull-requests/replace-babel-eslint.md), [NuGet](features/06-replacement-prs/pull-requests/replace-mvc-versioning.md), [dashboard section](features/06-replacement-prs/dependency-dashboard-deprecations.md) |
@@ -38,7 +38,7 @@ The folders under `features/` use these names:
 | `example-files/` | The dependency files before the PR, for example `package.json` or `Chart.yaml` |
 | `pull-requests/` | The example PRs: title, labels, branch, PR body, changed files and an explanation |
 
-Feature 03 has no `example-files/`, because its PRs change the files of feature 01. Feature 04 has an example issue instead of example PRs. Feature 09 has five parts, and each part is a subfolder with the same files.
+Feature 04 has an example issue instead of example PRs. Feature 09 has five parts, and each part is a subfolder with the same files.
 
 ## Real behavior and illustration
 
@@ -53,7 +53,7 @@ These parts are real:
 
 These parts are illustration:
 
-- PR numbers, commit hashes, check names and check results are fictional.
+- PR numbers, commit hashes, check names and check results are fictional. Feature 03 is the exception for the check names: they are the jobs in [`automerge-example.yml`](.github/workflows/automerge-example.yml).
 - The project names in the example files, for example `web-app` and `WebApi`. They are names for the example files in this repository.
 - The links to GitHub. On github.com, Renovate changes each link to `github.com` in the PR body to `redirect.github.com`. The redirect stops GitHub from adding a reference on the linked issue or PR. The examples show `github.com`, because those links are easier to read.
 
@@ -65,13 +65,13 @@ A GitHub Actions workflow runs Renovate on this repository. These files control 
 |---|---|
 | [`.github/workflows/renovate.yml`](.github/workflows/renovate.yml) | Runs Renovate 44.247.1 at minute 0 of every hour. The "Run workflow" button on the Actions tab starts a run at once. |
 | [`renovate.json5`](renovate.json5) | The configuration of the run. It combines [`configs/renovate.app.json5`](configs/renovate.app.json5) and [`configs/renovate.infrastructure.json5`](configs/renovate.infrastructure.json5). Comments at the top of the file name the differences. |
+| [`.github/workflows/automerge-example.yml`](.github/workflows/automerge-example.yml) | The status checks for the example files of feature 03. The check for `clsx` passes. The check for `dayjs` fails on purpose. |
 
 Renovate reads only `renovate.json5` in the root. The files `features/*/renovate.json5` and `configs/*.json5` have no effect on the run.
 
-Some examples cannot become real PRs:
+Automerge applies only to the files of feature 03. Renovate merges the PR for `clsx` in the hourly run after its checks pass. The PR for `dayjs` stays open, because its check fails. The patch PRs of the other features stay open for a person.
 
-- Feature 07: Renovate reads the security alerts from Dependabot. If Dependabot alerts are off for the repository, Renovate opens no security PR.
-- Feature 03: the automerge PRs stay open, because the repository has no status checks. Renovate merges a PR after all its checks are green, and no check exists here.
+Feature 07 can become a real PR only with Dependabot alerts on. Renovate reads the security alerts from Dependabot. If Dependabot alerts are off for the repository, Renovate opens no security PR.
 
 The workflow reads the token from the repository secret `RENOVATE_TOKEN`. The token is a fine-grained personal access token (PAT) with access to this repository only. It has these permissions:
 

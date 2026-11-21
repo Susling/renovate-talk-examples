@@ -1,0 +1,53 @@
+# Feature 03. The status checks for the automerge example.
+#
+# The workflow runs on each PR that changes a file under
+# features/03-automerge/example-files/. Renovate reads the results of the two
+# jobs before it merges a PR that has automerge.
+# - clsx: passes, so Renovate merges the PR for clsx.
+# - dayjs: fails on purpose for each version other than 1.11.12, so the PR
+#   for dayjs stays open. The failure is an illustration of a failed test.
+#
+# The jobs have only run steps and no actions. An action is a dependency, so
+# Renovate would open PRs for it.
+name: Automerge example
+
+on:
+  pull_request:
+    paths:
+      - 'features/03-automerge/example-files/**'
+
+permissions:
+  contents: read
+
+jobs:
+  clsx:
+    name: test (clsx)
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      FILE: features/03-automerge/example-files/merged/package.json
+    steps:
+      - name: Read the version of clsx
+        run: |
+          version=$(gh api "repos/$GITHUB_REPOSITORY/contents/$FILE?ref=$HEAD_SHA" \
+            -H 'Accept: application/vnd.github.raw' | jq -r '.dependencies.clsx')
+          echo "clsx $version: the check passes."
+
+  dayjs:
+    name: test (dayjs)
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      FILE: features/03-automerge/example-files/blocked/package.json
+    steps:
+      - name: Accept only dayjs 1.11.12
+        run: |
+          version=$(gh api "repos/$GITHUB_REPOSITORY/contents/$FILE?ref=$HEAD_SHA" \
+            -H 'Accept: application/vnd.github.raw' | jq -r '.dependencies.dayjs')
+          if [ "$version" != "1.11.12" ]; then
+            echo "::error::dayjs $version: this check fails on purpose. Feature 03 uses it to show a PR that automerge does not merge."
+            exit 1
+          fi
+          echo "dayjs $version: the check passes."
