@@ -1,0 +1,35 @@
+// Feature 08: Rollback PRs
+//
+// If the version in package.json no longer exists in the registry,
+// Renovate opens a PR that goes back to the newest version below it.
+// 'rollbackPrs' is false by default. The Renovate docs recommend that you
+// turn it on in a package rule for some packages, not for all packages.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  extends: ['config:recommended'],
+
+  labels: ['dependencies'],
+
+  packageRules: [
+    {
+      description: 'Roll back internal packages when a version is deleted from GitHub Packages',
+      matchPackageNames: ['@contoso/**'],
+      rollbackPrs: true,
+    },
+  ],
+
+  // Renovate applies this object only to rollback updates.
+  // The defaults in Renovate 44 are:
+  //   branchTopic: '{{{depNameSanitized}}}-rollback'
+  //   commitMessageAction: 'Roll back'
+  //   semanticCommitType: 'fix'
+  // The object below adds to the defaults. It does not replace them.
+  rollback: {
+    addLabels: ['rollback'],
+  },
+
+  // Renovate reads the registry for the @contoso scope from .npmrc in the
+  // repository. The token for npm.pkg.github.com is in the configuration of
+  // the Renovate installation, not in this file.
+}

@@ -1,0 +1,17 @@
+// Feature 09, part 5: Kubernetes manifests
+//
+// The kubernetes manager has no default file pattern, because a Kubernetes
+// manifest has no fixed file name. You must tell Renovate where the
+// manifests are. The manager reads each file that matches the pattern and
+// contains both 'apiVersion:' and 'kind:'.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  extends: ['config:recommended'],
+
+  labels: ['dependencies'],
+
+  kubernetes: {
+    managerFilePatterns: ['/(^|/)k8s/.+\\.ya?ml$/'],
+  },
+}

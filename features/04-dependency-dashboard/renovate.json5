@@ -1,0 +1,51 @@
+// Feature 04: Dependency Dashboard
+//
+// The Dependency Dashboard is one GitHub issue that Renovate writes and
+// updates in each run. It lists all updates, also the updates that have no PR,
+// and it has a checkbox for each update. A person selects a checkbox to tell
+// Renovate what to do in the next run.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  // config:recommended extends the preset ':dependencyDashboard', which sets
+  // dependencyDashboard.enabled to true. You do not need the lines below to
+  // get the issue. They show the options that you can change.
+  extends: ['config:recommended'],
+
+  dependencyDashboard: {
+    enabled: true,
+    // The title of the issue. Renovate finds the issue again by this title.
+    title: 'Dependency Dashboard',
+    // true: Renovate closes the issue when there is nothing to show.
+    autoclose: false,
+    // true: Renovate pins the issue at the top of the issue list.
+    pinned: true,
+  },
+
+  labels: ['dependencies'],
+
+  packageRules: [
+    {
+      description: 'A person must approve each major update in the Dependency Dashboard',
+      matchUpdateTypes: ['major'],
+      // Renovate does not create a branch. The update gets a checkbox in the
+      // section "Pending Approval".
+      dependencyDashboardApproval: true,
+    },
+    {
+      description: 'Put the npm tools for formatting and Git hooks in one PR',
+      matchManagers: ['npm'],
+      matchDepTypes: ['devDependencies'],
+      matchPackageNames: ['prettier', 'lint-staged', 'husky'],
+      matchUpdateTypes: ['minor', 'patch'],
+      groupName: 'npm dev tooling',
+    },
+  ],
+
+  // Lock file maintenance has its own schedule. Outside the schedule, the
+  // update is in the section "Awaiting Schedule". See feature 05.
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: ['before 4am on monday'],
+  },
+}

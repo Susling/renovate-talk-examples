@@ -1,0 +1,97 @@
+// A complete configuration for an application repository with .NET (NuGet)
+// and Node.js (npm). It combines the configurations of features 01 to 08.
+// Copy it to renovate.json5 in the root of the repository.
+//
+// Each block names the feature that explains it. The order of packageRules
+// matters: if two rules set the same option, the later rule wins.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  // Feature 01. The preset that the Renovate onboarding PR suggests. It also
+  // turns on the Dependency Dashboard (04), the monorepo groups (02) and the
+  // replacement presets (06).
+  extends: ['config:recommended'],
+
+  // Feature 01. Every Renovate PR gets this label.
+  labels: ['dependencies'],
+
+  // Feature 04. The issue is on by default. These lines pin it.
+  dependencyDashboard: {
+    pinned: true,
+  },
+
+  packageRules: [
+    // Feature 01. One label per ecosystem, and one for major updates.
+    {
+      matchManagers: ['npm'],
+      addLabels: ['npm'],
+    },
+    {
+      matchManagers: ['nuget'],
+      addLabels: ['nuget'],
+    },
+    {
+      matchUpdateTypes: ['major'],
+      addLabels: ['major'],
+    },
+
+    // Feature 02. A custom group.
+    {
+      description: 'Put the npm tools for formatting and Git hooks in one PR',
+      matchManagers: ['npm'],
+      matchDepTypes: ['devDependencies'],
+      matchPackageNames: ['prettier', 'lint-staged', 'husky'],
+      matchUpdateTypes: ['minor', 'patch'],
+      groupName: 'npm dev tooling',
+    },
+
+    // Feature 03. Automerge for patch updates, approval for major updates.
+    {
+      description: 'Automerge patch updates after all checks pass',
+      matchUpdateTypes: ['patch'],
+      matchCurrentVersion: '!/^0/',
+      automerge: true,
+    },
+    {
+      description: 'A person must approve each major update in the Dependency Dashboard',
+      matchUpdateTypes: ['major'],
+      dependencyDashboardApproval: true,
+    },
+
+    // Feature 06. An own replacement rule, and a label for all replacements.
+    {
+      description: 'Replace the deprecated API versioning package',
+      matchDatasources: ['nuget'],
+      matchPackageNames: ['Microsoft.AspNetCore.Mvc.Versioning'],
+      replacementName: 'Asp.Versioning.Mvc',
+      replacementVersion: '8.1.0',
+    },
+    {
+      matchUpdateTypes: ['replacement'],
+      addLabels: ['replacement'],
+    },
+
+    // Feature 08. Rollback PRs for internal packages only.
+    {
+      description: 'Roll back internal packages when a version is deleted from GitHub Packages',
+      matchPackageNames: ['@contoso/**'],
+      rollbackPrs: true,
+    },
+  ],
+
+  // Feature 05. A new lock file each Monday before 04:00.
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: ['before 4am on monday'],
+  },
+
+  // Feature 07. Security PRs ignore the schedule and the PR limits.
+  vulnerabilityAlerts: {
+    addLabels: ['security'],
+  },
+
+  // Feature 08. A label for rollback PRs.
+  rollback: {
+    addLabels: ['rollback'],
+  },
+}

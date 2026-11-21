@@ -1,0 +1,9 @@
+apiVersion: v2
+name: contoso-argocd
+description: Argo CD for the Contoso clusters, with the Contoso defaults
+type: application
+version: 0.14.0
+dependencies:
+  - name: argo-cd
+    version: 7.7.15
+    repository: https://argoproj.github.io/argo-helm

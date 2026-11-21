@@ -1,0 +1,11 @@
+# Deploy settings for the contoso-platform pipeline.
+# The deploy job installs these tool versions before it runs helm upgrade.
+release: orders
+chart: charts/orders
+namespace: orders
+
+tools:
+  # renovate: datasource=github-releases depName=helm/helm
+  helm: v3.16.4
+  # renovate: datasource=github-releases depName=kubernetes/kubernetes
+  kubectl: v1.32.1

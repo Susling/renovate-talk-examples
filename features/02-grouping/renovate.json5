@@ -1,0 +1,33 @@
+// Feature 02: grouping
+//
+// A group puts several updates in one branch and one PR.
+// There are two kinds of groups in this file:
+//   1. Built-in monorepo groups. config:recommended turns them on.
+//   2. A custom group that you define with groupName in packageRules.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  // config:recommended extends group:monorepos and group:recommended.
+  // group:monorepos holds a list of known monorepos. A package belongs to
+  // a monorepo group when its source URL matches the list, for example
+  // https://github.com/angular/angular or https://github.com/dotnet/efcore.
+  // Result without more configuration:
+  //   - "Update angular monorepo to v19.1.1"  (@angular/core, @angular/common, ...)
+  //   - "Update dotnet monorepo to v9.0.1"    (Microsoft.EntityFrameworkCore.*)
+  extends: ['config:recommended'],
+
+  labels: ['dependencies'],
+
+  packageRules: [
+    {
+      description: 'Put the npm tools for formatting and Git hooks in one PR',
+      matchManagers: ['npm'],
+      matchDepTypes: ['devDependencies'],
+      matchPackageNames: ['prettier', 'lint-staged', 'husky'],
+      // Major updates are not in the group. Each major update still gets
+      // its own PR, so one breaking change does not block the others.
+      matchUpdateTypes: ['minor', 'patch'],
+      groupName: 'npm dev tooling',
+    },
+  ],
+}

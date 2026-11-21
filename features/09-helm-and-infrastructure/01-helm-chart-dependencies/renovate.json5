@@ -1,0 +1,24 @@
+// Feature 09, part 1: Helm chart dependencies
+//
+// The helmv3 manager is on by default. It finds every Chart.yaml file and
+// reads the 'dependencies' list. A chart from a public chart repository
+// needs no configuration. The package rule below only adds a label.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  extends: ['config:recommended'],
+
+  labels: ['dependencies'],
+
+  packageRules: [
+    {
+      description: 'Label the updates of Helm chart dependencies',
+      matchManagers: ['helmv3'],
+      addLabels: ['helm'],
+    },
+  ],
+
+  // Optional: a chart repository often requires a new chart version for each
+  // change. Then add bumpVersion: 'patch' to the package rule. Renovate also
+  // changes 'version' in Chart.yaml, for example 0.14.0 to 0.14.1.
+}

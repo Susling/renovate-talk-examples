@@ -1,0 +1,49 @@
+// Feature 03: automerge
+//
+// Automerge means that Renovate merges a PR without a person, but only
+// after all status checks (CI) pass. In this file:
+//   - Patch updates merge automatically.
+//   - Major updates wait for approval in the Dependency Dashboard.
+//   - Minor updates get a normal PR that a person merges.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  extends: ['config:recommended'],
+
+  labels: ['dependencies'],
+
+  packageRules: [
+    {
+      description: 'Automerge patch updates after all checks pass',
+      matchUpdateTypes: ['patch'],
+      // Not for 0.x versions. Before 1.0.0, a patch can contain breaking changes.
+      matchCurrentVersion: '!/^0/',
+      automerge: true,
+    },
+    {
+      description: 'A person must approve each major update in the Dependency Dashboard',
+      matchUpdateTypes: ['major'],
+      // Renovate does not create the branch or the PR before approval.
+      // The preset ':approveMajorUpdates' contains the same rule.
+      dependencyDashboardApproval: true,
+    },
+  ],
+
+  // The values below are the defaults. They are here to show what controls
+  // automerge. You can remove them.
+
+  // 'pr': Renovate opens a PR and merges it.
+  // 'branch': Renovate merges the branch without a PR. It opens a PR only if a check fails.
+  automergeType: 'pr',
+
+  // true: Renovate turns on GitHub auto-merge on the PR. GitHub merges the PR
+  // when the required status checks pass. Required checks come from branch
+  // protection or a ruleset on main.
+  // false: Renovate merges the PR itself in a later run, when all checks are green.
+  platformAutomerge: true,
+
+  // false: Renovate merges only if the checks are green. A branch with no
+  // checks at all is not green, so Renovate does not merge it.
+  // true: Renovate merges without looking at the checks.
+  ignoreTests: false,
+}
