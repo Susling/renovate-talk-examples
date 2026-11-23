@@ -84,7 +84,7 @@ These parts come from Renovate 44 and GitHub:
 
 The source files are `lib/modules/manager/custom/regex/index.ts`, `lib/modules/manager/custom/regex/utils.ts` and `lib/workers/repository/update/pr/changelog/release-notes.ts`. The file format is an example for this repository. The PR number #76 and the check are fictional.
 
-The example PR is from 2025-01-17. Renovate runs on this repository every hour. If a newer Helm or Kubernetes release exists, Renovate opens a real PR for [`example-files/deploy-tools.yaml`](example-files/deploy-tools.yaml).
+The example PR is from 2025-01-17. Renovate runs on this repository once a day. If a newer Helm or Kubernetes release exists, Renovate opens a real PR for [`example-files/deploy-tools.yaml`](example-files/deploy-tools.yaml).
 
 ## Read more
 

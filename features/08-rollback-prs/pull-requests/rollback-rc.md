@@ -131,4 +131,4 @@ The PR goes to the same version as the advisory: 1.2.8. Renovate does not read t
 
 ## The same PR in this repository
 
-Renovate runs on this repository every hour, and the root `renovate.json5` has the same rule for `rc`. So Renovate opens this PR for real, on the day of the run. The real PR has a new number and a new date.
+Renovate runs on this repository once a day, and the root `renovate.json5` has the same rule for `rc`. So Renovate opens this PR for real, on the day of the run. The real PR has a new number and a new date.
