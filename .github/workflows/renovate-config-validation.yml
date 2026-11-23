@@ -1,0 +1,62 @@
+# Runs Renovate's own validator on every Renovate configuration file in this
+# repository, when a pull request changes one of them.
+#
+# Renovate reads renovate.json5 in the root from the default branch. Without
+# this check, an error in a pull request shows only in the next nightly run
+# after the merge. The other 15 files have no effect on the run, but the README
+# says that every configuration passes the validator in strict mode.
+#
+# The check has a paths filter. This private repository has no branch
+# protection, so the check cannot be a required status check. If you copy this
+# workflow to a repository where the check is required, remove the filter.
+# A required check that does not run blocks the pull request.
+name: Renovate config validation
+
+on:
+  pull_request:
+    paths:
+      - renovate.json5
+      - configs/*.json5
+      - features/**/renovate.json5
+      - .github/workflows/renovate-config-validation.yml
+  push:
+    branches: [main]
+    paths:
+      - renovate.json5
+      - configs/*.json5
+      - features/**/renovate.json5
+      - .github/workflows/renovate-config-validation.yml
+  # Adds the "Run workflow" button on the Actions tab.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate the Renovate configuration files
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      # Renovate 44 requires Node 24 or 26.
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: '24'
+
+      # The version must be the same as renovate-version in renovate.yml.
+      # --strict fails on unknown options and on options that need migration,
+      # not only on invalid JSON5.
+      # --no-global reads each file as repository configuration. Without it,
+      # the validator reads a file that you name as self-hosted configuration.
+      # A glob that matches no file stays as text, and the validator then fails
+      # on the missing file.
+      - name: Run renovate-config-validator
+        run: >-
+          npx --yes --package renovate@44.247.1 --
+          renovate-config-validator --strict --no-global
+          renovate.json5
+          configs/*.json5
+          features/*/renovate.json5
+          features/*/*/renovate.json5

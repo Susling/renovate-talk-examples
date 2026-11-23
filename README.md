@@ -67,6 +67,7 @@ A GitHub Actions workflow runs Renovate on this repository. These files control 
 |---|---|
 | [`.github/workflows/renovate.yml`](.github/workflows/renovate.yml) | Runs Renovate 44.247.1 once a day at 01:17 UTC. The "Run workflow" button on the Actions tab starts a run at once. |
 | [`renovate.json5`](renovate.json5) | The configuration of the run. It combines [`configs/renovate.app.json5`](configs/renovate.app.json5) and [`configs/renovate.infrastructure.json5`](configs/renovate.infrastructure.json5). Comments at the top of the file name the differences. |
+| [`.github/workflows/renovate-config-validation.yml`](.github/workflows/renovate-config-validation.yml) | If a PR changes one of the 16 configuration files, this workflow runs the validator of Renovate 44.247.1 on all 16 in strict mode. |
 | [`.github/workflows/automerge-example.yml`](.github/workflows/automerge-example.yml) | The status checks for the example files of feature 03. The check for `clsx` passes. The check for `dayjs` fails on purpose. |
 
 Renovate reads only `renovate.json5` in the root. The files `features/*/renovate.json5` and `configs/*.json5` have no effect on the run.
