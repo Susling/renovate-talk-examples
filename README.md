@@ -73,10 +73,10 @@ Automerge applies only to the files of feature 03. Renovate merges the PR for `c
 
 Feature 07 can become a real PR only with Dependabot alerts on. Renovate reads the security alerts from Dependabot. If Dependabot alerts are off for the repository, Renovate opens no security PR.
 
-The token comes from a GitHub App that is installed on this repository only. At the start of each run, the action `actions/create-github-app-token` makes an installation token for the app. The token is valid for one hour. The workflow reads two values:
+The token comes from a GitHub App that is installed on this repository only. At the start of each run, the action `actions/create-github-app-token` makes an installation token for the app. The token is valid for one hour. The workflow reads two repository secrets:
 
-- The repository variable `RENOVATE_APP_CLIENT_ID`: the Client ID of the app.
-- The repository secret `RENOVATE_APP_PRIVATE_KEY`: a private key of the app.
+- `RENOVATE_APP_ID`: the App ID or the Client ID of the app.
+- `RENOVATE_APP_PRIVATE_KEY`: a private key of the app.
 
 The app has these repository permissions:
 
