@@ -45,10 +45,14 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
         env:
           RENOVATE_REPOSITORIES: ${{ github.repository }}
-          # The commits keep this author. Renovate compares the author of the last commit
-          # on a branch with this value. Another author means that a person changed the
-          # branch, and then Renovate stops updating it.
+          # Renovate compares the author of each commit on a branch with RENOVATE_GIT_AUTHOR
+          # and RENOVATE_GIT_IGNORED_AUTHORS. Another author means that a person changed the
+          # branch, and then Renovate stops updating and merging it.
+          # The old branches have commits from the PAT user Susling.
           RENOVATE_GIT_AUTHOR: "Susling <18191356+Susling@users.noreply.github.com>"
+          # With a GitHub App token, Renovate makes its commits through the GitHub API
+          # (platformCommit "auto"). GitHub writes the app as the author of these commits.
+          RENOVATE_GIT_IGNORED_AUTHORS: "360128416+susling-renovate-bot[bot]@users.noreply.github.com"
           # The open Renovate PRs and the Dependency Dashboard were opened with a PAT of
           # the user Susling. Without this option, Renovate looks only at PRs and issues
           # of the GitHub App, so it does not find them.
