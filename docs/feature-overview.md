@@ -11,7 +11,7 @@ This page compares the nine features on one page. Each row links to the page of 
 | 05 | [Lock file maintenance](../features/05-lock-file-maintenance/README.md) | Creates the lock file again, so that transitive dependencies update | `lockFileMaintenance` | No | npm |
 | 06 | [Replacement PRs](../features/06-replacement-prs/README.md) | Changes the name of a dependency, not only the version | `replacementName` | Yes, for known renames (`replacements:all`) | npm, NuGet |
 | 07 | [Vulnerability alerts](../features/07-vulnerability-alerts/README.md) | Opens a security PR at once, outside the schedule | `vulnerabilityAlerts` | Yes. GitHub must give Renovate the Dependabot alerts | NuGet |
-| 08 | [Rollback PRs](../features/08-rollback-prs/README.md) | If the version is gone from the registry, moves the dependency to a lower version | `rollbackPrs` | No | npm |
+| 08 | [Rollback PRs](../features/08-rollback-prs/README.md) | If the version is gone from the registry, or `extractVersion` hides it, moves the dependency to a lower version | `rollbackPrs` | No | npm, NuGet |
 | 09 | [Helm and infrastructure](../features/09-helm-and-infrastructure/README.md) | Updates charts, images and tool versions in deploy files | `managerFilePatterns`, `customManagers` | Partly. See the table below | Helm, Docker, Kubernetes, GitHub releases |
 
 ## The five parts of feature 09
@@ -46,6 +46,7 @@ Each example is a Markdown file, not a real PR. The labels column shows the labe
 | 06 | [Dependency Dashboard: Deprecations / Replacements (issue section)](../features/06-replacement-prs/dependency-dashboard-deprecations.md) | None |
 | 07 | [Update dependency System.Text.Json to v8.0.5 [SECURITY]](../features/07-vulnerability-alerts/pull-requests/security-system-text-json.md) | `dependencies` `security` |
 | 08 | [Roll back dependency rc to 1.2.8](../features/08-rollback-prs/pull-requests/rollback-rc.md) | `dependencies` `rollback` |
+| 08 | [Roll back dependency FluentAssertions to 7.2.2](../features/08-rollback-prs/pull-requests/rollback-fluentassertions.md) | `dependencies` `rollback` |
 | 09.1 | [Update Helm release argo-cd to v7.7.16](../features/09-helm-and-infrastructure/01-helm-chart-dependencies/pull-requests/helm-argo-cd.md) | `dependencies` `helm` |
 | 09.2 | [Update podinfo Docker tag to v6.7.1](../features/09-helm-and-infrastructure/02-helm-oci-chart/pull-requests/helm-podinfo.md) | `dependencies` |
 | 09.3 | [Update ghcr.io/stefanprodan/podinfo Docker tag to v6.7.1](../features/09-helm-and-infrastructure/03-helm-values-images/pull-requests/image-podinfo.md) | `dependencies` |

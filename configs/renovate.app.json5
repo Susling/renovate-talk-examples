@@ -78,6 +78,22 @@
       matchPackageNames: ['rc'],
       rollbackPrs: true,
     },
+
+    // Feature 08. A controlled rollback. FluentAssertions 8.0.0 is still on
+    // NuGet, but it has a paid license for commercial use. 'extractVersion'
+    // hides 8.x, so the current version looks missing and Renovate opens a
+    // rollback PR. 'allowedVersions' blocks updates to 8.x as a second guard.
+    {
+      description: 'Roll back FluentAssertions from 8.0.0 and hold it below 8',
+      matchDatasources: ['nuget'],
+      matchPackageNames: ['FluentAssertions'],
+      extractVersion: '^(?<version>[0-7]\\..+)$',
+      rollbackPrs: true,
+      // The NuGet manager uses 'bump' by default. With 'bump', Renovate
+      // drops the rollback when the current version is missing.
+      rangeStrategy: 'replace',
+      allowedVersions: '(,8.0.0)',
+    },
   ],
 
   // Feature 05. A new lock file each Monday before 04:00.

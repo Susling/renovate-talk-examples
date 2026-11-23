@@ -2,11 +2,15 @@
 
 A rollback PR moves a dependency to a lower version. If the version in the repository no longer exists in the registry, Renovate opens a rollback PR. The option `rollbackPrs` is off by default.
 
+If the bad version is still in the registry, you can hide it from Renovate with `extractVersion`. Then Renovate also opens a rollback PR. This is a controlled rollback.
+
 | File | What it shows |
 |---|---|
-| [`renovate.json5`](renovate.json5) | The configuration: `rollbackPrs` for the npm package `rc` only, and a `rollback` label |
-| [`example-files/`](example-files/) | `package.json` of an Angular app that pins `rc` 1.2.9, before the PR |
+| [`renovate.json5`](renovate.json5) | The configuration: `rollbackPrs` for the npm package `rc`, a controlled rollback for the NuGet package `FluentAssertions`, and a `rollback` label |
+| [`example-files/package.json`](example-files/package.json) | An Angular app that pins `rc` 1.2.9, before the PR |
+| [`example-files/WebApi.Tests.csproj`](example-files/WebApi.Tests.csproj) | A .NET test project that pins `FluentAssertions` 8.0.0, before the PR |
 | [`pull-requests/rollback-rc.md`](pull-requests/rollback-rc.md) | npm: `rc` 1.2.9 to 1.2.8, after npm removed 1.2.9 |
+| [`pull-requests/rollback-fluentassertions.md`](pull-requests/rollback-fluentassertions.md) | NuGet: `FluentAssertions` 8.0.0 to 7.2.2, while 8.0.0 is still in the registry |
 
 ## The scenario
 
@@ -91,13 +95,45 @@ If the package is in a private registry, Renovate must have read access to it. F
 
 A rollback PR needs a missing version. Renovate opens no PR in these cases:
 
-1. The broken version is still in the registry. Renovate sees a valid version and has nothing to do.
+1. The broken version is still in the registry, and no `extractVersion` hides it. Renovate sees a valid version and has nothing to do. The next section shows how to hide the version.
 2. `rollbackPrs` is `false` for the package. Renovate finds no version above 1.2.9 and opens no PR.
 3. No version below the current version exists. Renovate writes the warning `Can't find version matching 1.2.9 for npm package rc` in the log and on the Dependency Dashboard.
+4. Renovate finds no current version. In Renovate 44.247.1, this happens for NuGet with the default range strategy `bump`. Renovate computes the rollback and then drops it before it makes a branch. Set `rangeStrategy: 'replace'` in the rule.
 
 On npmjs.org, a package owner can unpublish a version only under strict conditions. npm itself removes a version with malware, as with `rc` 1.2.9. A deleted version is more frequent in a private registry.
 
-If a broken version stays in the registry, revert the update with git. Then stop Renovate from proposing that version again:
+## Controlled rollback: the bad version is still in the registry
+
+Sometimes a version is still in the registry, but you must go back. Examples are a bug, a breaking change or a new license. The second rule in [`renovate.json5`](renovate.json5) shows this for `FluentAssertions`. Version 8.0.0 changed the license from Apache-2.0 to the Xceed license, which needs a paid license for commercial use. Version 8.0.0 has no bug, but the mechanism is the same.
+
+```json5
+{
+  description: 'Roll back FluentAssertions from 8.0.0 and hold it below 8',
+  matchDatasources: ['nuget'],
+  matchPackageNames: ['FluentAssertions'],
+  extractVersion: '^(?<version>[0-7]\\..+)$',
+  rollbackPrs: true,
+  rangeStrategy: 'replace',
+  allowedVersions: '(,8.0.0)',
+}
+```
+
+Each option has one job:
+
+| Option | What it does in this rule |
+|---|---|
+| `extractVersion` | Renovate drops every release that the regular expression does not match. Versions 8.0.0 and higher are not in the list anymore, so the current version looks missing |
+| `rollbackPrs` | Because the current version looks missing, Renovate makes a rollback update to the highest stable version below 8.0.0: 7.2.2 |
+| `rangeStrategy` | `'replace'` lets Renovate use 8.0.0 as the current version. With the NuGet default `bump`, Renovate drops the rollback before it makes a branch |
+| `allowedVersions` | A second guard. Renovate proposes no update to 8.0.0 or higher. This stays true after a change to `extractVersion`. `(,8.0.0)` is a NuGet version range: lower than 8.0.0 |
+
+`allowedVersions` alone does not start a rollback. Renovate applies it after the rollback check, and it only removes versions that Renovate can update to. Without `extractVersion`, Renovate sees 8.0.0, finds the current version and opens no PR.
+
+The update type is `rollback`. Package rules for `patch`, `minor` or `major` updates do not match it. So a rule that automerges patch updates does not merge a rollback PR. A rule that asks for approval of major updates does not hold it back.
+
+When the problem is fixed in a later version, change the regular expression in `extractVersion` and the range in `allowedVersions`. Then Renovate opens a normal update PR again.
+
+If you want no PR, revert the update with git. Then stop Renovate from proposing that version again:
 
 ```json5
 {
@@ -121,7 +157,7 @@ The word "rollback" means different things in different tools:
 | Trigger | The version is missing from the registry | A person, after a failed build or a bug | A person or a tool, after a failed deploy or health check |
 | Target version | The highest version below the missing version | The state before the reverted commit | The release before the current release |
 | Fixes the build | Yes | Yes | No. The repository still pins 1.2.9 |
-| Broken version still in the registry | No PR | Works | Works |
+| Broken version still in the registry | PR only with `extractVersion` | Works | Works |
 
 A deployment rollback changes only the cluster. With GitOps tools such as Flux, the next sync applies the repository again. Then a revert in git is the rollback.
 
@@ -138,12 +174,16 @@ The source files are `lib/config/options/index.ts`, `lib/workers/repository/proc
 
 The package `rc`, its 48 versions, the publish times, the advisory and the removal are real. The npm error came from npm 11.17.0 on 2026-11-21. The PR numbers #409 and #421 are fictional. The other dependencies in `example-files/package.json` have versions from 2024 and 2025, not from 2021.
 
-Renovate runs on this repository with the same rule for `rc`, so it opens a real rollback PR for [`example-files/package.json`](example-files/package.json).
+The package `FluentAssertions`, its versions, the publish dates and the license change are real. A dry run of Renovate 44.247.1 on 2026-11-23 gave the rollback from 8.0.0 to 7.2.2 and the branch `renovate/fluentassertions-rollback`. The same dry run showed that the rule needs `rangeStrategy: 'replace'`. With `bump`, the dependency gets a `skipReason`, and the function `flattenUpdates` in `lib/workers/repository/updates/flatten.ts` then drops the update. The PR numbers #430 and #437 are fictional.
+
+Renovate runs on this repository with the same rules for `rc` and `FluentAssertions`. So it opens real rollback PRs for [`example-files/package.json`](example-files/package.json) and [`example-files/WebApi.Tests.csproj`](example-files/WebApi.Tests.csproj).
 
 ## Read more
 
 - [Renovate docs: `rollbackPrs`](https://docs.renovatebot.com/configuration-options/#rollbackprs)
 - [Renovate docs: `rollback`](https://docs.renovatebot.com/configuration-options/#rollback)
 - [Renovate docs: `allowedVersions`](https://docs.renovatebot.com/configuration-options/#allowedversions)
+- [Renovate docs: `extractVersion`](https://docs.renovatebot.com/configuration-options/#extractversion)
+- [Renovate docs: `rangeStrategy`](https://docs.renovatebot.com/configuration-options/#rangestrategy)
 - [npm docs: unpublish policy](https://docs.npmjs.com/policies/unpublish)
 - [GitHub advisory GHSA-g2q5-5433-rhrf: Embedded malware in rc](https://github.com/advisories/GHSA-g2q5-5433-rhrf)
