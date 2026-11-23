@@ -40,6 +40,8 @@ The folders under `features/` use these names:
 
 Feature 04 has an example issue instead of example PRs. Feature 09 has five parts, and each part is a subfolder with the same files.
 
+Each `renovate.json5` is a complete configuration that you can copy alone into another repository. So each file starts with the same three lines: `$schema`, `extends: ['config:recommended']` and `labels: ['dependencies']`. The lines after them show the feature. If the feature works without configuration, the file has only comments after the three lines, for example in parts 2 and 3 of feature 09.
+
 ## Real behavior and illustration
 
 Each example PR starts with a note that says which parts are real and which parts are illustration.
