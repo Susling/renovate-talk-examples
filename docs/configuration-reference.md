@@ -52,7 +52,7 @@ A package rule has match options and options to apply. All match options in one 
 | Option | Kind | What it matches or does | Used in |
 |---|---|---|---|
 | [`matchManagers`](https://docs.renovatebot.com/configuration-options/#matchmanagers) | Match | The manager, for example `npm`, `nuget` or `helmv3` | 01, 02, 09.1, app, infrastructure |
-| [`matchDatasources`](https://docs.renovatebot.com/configuration-options/#matchdatasources) | Match | The datasource, for example `nuget` | 06, app |
+| [`matchDatasources`](https://docs.renovatebot.com/configuration-options/#matchdatasources) | Match | The datasource, for example `nuget` | 06, 08, app |
 | [`matchDepTypes`](https://docs.renovatebot.com/configuration-options/#matchdeptypes) | Match | The dependency type, for example `devDependencies` | 02, app |
 | [`matchPackageNames`](https://docs.renovatebot.com/configuration-options/#matchpackagenames) | Match | Exact names, glob patterns such as `@angular/**`, or regular expressions | 02, 06, 08, app |
 | [`matchUpdateTypes`](https://docs.renovatebot.com/configuration-options/#matchupdatetypes) | Match | `major`, `minor`, `patch`, `replacement` and other update types | 01, 02, 03, 04, 06, app |
@@ -68,6 +68,9 @@ A package rule has match options and options to apply. All match options in one 
 | [`replacementName`](https://docs.renovatebot.com/configuration-options/#replacementname) | Apply | The new package name | 06, app |
 | [`replacementVersion`](https://docs.renovatebot.com/configuration-options/#replacementversion) | Apply | The version of the new package | 06, app |
 | [`rollbackPrs`](https://docs.renovatebot.com/configuration-options/#rollbackprs) | Apply | Default `false`. Allows rollback PRs | 08, app |
+| [`extractVersion`](https://docs.renovatebot.com/configuration-options/#extractversion) | Apply | A regular expression with a `version` group. Renovate drops every release that the expression does not match | 08, app |
+| [`allowedVersions`](https://docs.renovatebot.com/configuration-options/#allowedversions) | Apply | A version range or a regular expression. Renovate proposes no update to a version outside it | 08, app |
+| [`rangeStrategy`](https://docs.renovatebot.com/configuration-options/#rangestrategy) | Apply | Default `'auto'`. The NuGet manager uses `'bump'`. Feature 08 sets `'replace'`, so a NuGet rollback gets a branch | 08, app |
 
 ## Options in a custom regex manager
 

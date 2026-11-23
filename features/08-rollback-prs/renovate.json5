@@ -4,6 +4,9 @@
 // Renovate opens a PR that goes back to the newest version below it.
 // 'rollbackPrs' is false by default. The Renovate docs recommend that you
 // turn it on in a package rule for some packages, not for all packages.
+//
+// The second rule is a controlled rollback. The bad version is still in the
+// registry, so the rule uses 'extractVersion' to hide it from Renovate.
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
 
@@ -19,6 +22,27 @@
       description: 'Roll back rc when the registry no longer has the pinned version',
       matchPackageNames: ['rc'],
       rollbackPrs: true,
+    },
+    {
+      // A controlled rollback. FluentAssertions 8.0.0 is still on NuGet, but
+      // it changed the license from Apache-2.0 to a paid license for
+      // commercial use. So the team goes back to 7.x and stays there.
+      description: 'Roll back FluentAssertions from 8.0.0 and hold it below 8',
+      matchDatasources: ['nuget'],
+      matchPackageNames: ['FluentAssertions'],
+      // Renovate drops every release that this expression does not match.
+      // Without 8.0.0 in the list, the current version looks missing.
+      extractVersion: '^(?<version>[0-7]\\..+)$',
+      // With the current version missing, Renovate opens a rollback PR to
+      // the highest 7.x version.
+      rollbackPrs: true,
+      // The NuGet manager uses 'bump' by default. With 'bump', Renovate
+      // finds no current version and drops the rollback before it makes a
+      // branch. With 'replace', Renovate uses 8.0.0 as the current version.
+      rangeStrategy: 'replace',
+      // A second guard. If somebody changes 'extractVersion' later,
+      // Renovate still proposes no update to 8.0.0 or higher.
+      allowedVersions: '(,8.0.0)',
     },
   ],
 
