@@ -45,7 +45,7 @@ Each example is a Markdown file, not a real PR. The labels column shows the labe
 | 06 | [Replace dependency Microsoft.AspNetCore.Mvc.Versioning with Asp.Versioning.Mvc v8.1.0](../features/06-replacement-prs/pull-requests/replace-mvc-versioning.md) | `dependencies` `replacement` |
 | 06 | [Dependency Dashboard: Deprecations / Replacements (issue section)](../features/06-replacement-prs/dependency-dashboard-deprecations.md) | None |
 | 07 | [Update dependency System.Text.Json to v8.0.5 [SECURITY]](../features/07-vulnerability-alerts/pull-requests/security-system-text-json.md) | `dependencies` `security` |
-| 08 | [Roll back dependency rc to v1.2.8](../features/08-rollback-prs/pull-requests/rollback-rc.md) | `dependencies` `rollback` |
+| 08 | [Roll back dependency rc to 1.2.8](../features/08-rollback-prs/pull-requests/rollback-rc.md) | `dependencies` `rollback` |
 | 09.1 | [Update Helm release argo-cd to v7.7.16](../features/09-helm-and-infrastructure/01-helm-chart-dependencies/pull-requests/helm-argo-cd.md) | `dependencies` `helm` |
 | 09.2 | [Update podinfo Docker tag to v6.7.1](../features/09-helm-and-infrastructure/02-helm-oci-chart/pull-requests/helm-podinfo.md) | `dependencies` |
 | 09.3 | [Update ghcr.io/stefanprodan/podinfo Docker tag to v6.7.1](../features/09-helm-and-infrastructure/03-helm-values-images/pull-requests/image-podinfo.md) | `dependencies` |

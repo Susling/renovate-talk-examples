@@ -1,4 +1,4 @@
-# Roll back dependency rc to v1.2.8
+# Roll back dependency rc to 1.2.8
 
 > [!NOTE]
 > Illustrative pull request. The title, the branch name, the table and the note in the body are what Renovate produces for this rollback. The package `rc`, its versions, the dates, the advisory and the npm error are real. The PR numbers are fictional.
