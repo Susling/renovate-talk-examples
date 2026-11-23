@@ -63,7 +63,7 @@ These parts come from Renovate 44 and the argo-helm repository:
 
 The source files are `lib/modules/manager/helmv3/extract.ts`, `lib/modules/manager/helmv3/artifacts.ts` and `lib/modules/datasource/helm/index.ts`. The digests in `Chart.lock` are the real values that Helm calculates for 7.7.15 and 7.7.16. The PR number #73, the `generated` times in `Chart.lock` and the checks are fictional.
 
-The example PR is from 2025-01-17. Renovate runs on this repository every hour, so it opens a real PR for [`example-files/Chart.yaml`](example-files/Chart.yaml) to the newest version of `argo-cd`.
+The example PR is from 2025-01-17. Renovate runs on this repository once a day, so it opens a real PR for [`example-files/Chart.yaml`](example-files/Chart.yaml) to the newest version of `argo-cd`.
 
 ## Read more
 

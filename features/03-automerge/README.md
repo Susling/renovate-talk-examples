@@ -67,7 +67,7 @@ The lines `🚦 Automerge: Enabled.` and `Disabled by config` and the dashboard 
 The example PRs use the configuration of this folder, with `platformAutomerge: true`. The configuration of this repository, [`renovate.json5`](../../renovate.json5) in the root, is different in two places:
 
 - The automerge rule has `matchFileNames: ['features/03-automerge/**']`. Only the PRs for the files of this feature merge automatically.
-- The rule has `platformAutomerge: false`, because GitHub auto-merge is off for this repository. Renovate merges the PR for `clsx` in the next hourly run after the checks pass.
+- The rule has `platformAutomerge: false`, because GitHub auto-merge is off for this repository. Renovate merges the PR for `clsx` in the first run after the checks pass. Renovate runs once a day.
 
 ## Read more
 

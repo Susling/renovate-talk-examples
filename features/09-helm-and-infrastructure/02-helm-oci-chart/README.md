@@ -84,7 +84,7 @@ The source files are `lib/modules/manager/helmv3/extract.ts`, `lib/modules/manag
 
 The chart podinfo, its versions, its release notes and the digests in Chart.lock are real. A lookup with Renovate 44.247.1 on 2026-11-21 found the package name `ghcr.io/stefanprodan/charts/podinfo` and the source URL `https://github.com/stefanprodan/podinfo`. The PR number #74 and the `generated` times in Chart.lock are fictional.
 
-The example PR is from 2025-01-17. On that day, 6.7.1 was the newest version. Renovate runs on this repository every hour, so it opens a real PR for [`example-files/Chart.yaml`](example-files/Chart.yaml). On 2026-11-21, that PR goes to 6.17.0.
+The example PR is from 2025-01-17. On that day, 6.7.1 was the newest version. Renovate runs on this repository once a day, so it opens a real PR for [`example-files/Chart.yaml`](example-files/Chart.yaml). On 2026-11-21, that PR goes to 6.17.0.
 
 ## Read more
 

@@ -70,7 +70,7 @@ The source files are `lib/modules/manager/helm-values/extract.ts` and `lib/modul
 
 The image podinfo, its versions, its label and its release notes are real. A lookup with Renovate 44.247.1 on 2026-11-21 found the branch name `renovate/ghcr.io-stefanprodan-podinfo-6.x` and the source URL `https://github.com/stefanprodan/podinfo`. The PR number #75 is fictional.
 
-The example PR is from 2025-01-17. On that day, 6.7.1 was the newest version. Renovate runs on this repository every hour, so it opens a real PR for [`example-files/values.yaml`](example-files/values.yaml). On 2026-11-21, that PR goes to 6.17.0.
+The example PR is from 2025-01-17. On that day, 6.7.1 was the newest version. Renovate runs on this repository once a day, so it opens a real PR for [`example-files/values.yaml`](example-files/values.yaml). On 2026-11-21, that PR goes to 6.17.0.
 
 ## Read more
 

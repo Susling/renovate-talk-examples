@@ -4,7 +4,7 @@ This repository holds the examples for a talk.
 
 The talk is about [Renovate](https://docs.renovatebot.com/). Renovate is a bot that finds outdated dependencies and opens pull requests (PRs) that update them. Each feature has a commented configuration, example files and example PRs with an explanation.
 
-The example PRs under `features/` are Markdown files, not real PRs. Renovate also runs on this repository every hour and opens real PRs for the files under `features/*/example-files/`. The section [Renovate in this repository](#renovate-in-this-repository) explains the setup.
+The example PRs under `features/` are Markdown files, not real PRs. Renovate also runs on this repository once a day and opens real PRs for the files under `features/*/example-files/`. The section [Renovate in this repository](#renovate-in-this-repository) explains the setup.
 
 ## Features
 
@@ -63,13 +63,13 @@ A GitHub Actions workflow runs Renovate on this repository. These files control 
 
 | File | Contents |
 |---|---|
-| [`.github/workflows/renovate.yml`](.github/workflows/renovate.yml) | Runs Renovate 44.247.1 at minute 0 of every hour. The "Run workflow" button on the Actions tab starts a run at once. |
+| [`.github/workflows/renovate.yml`](.github/workflows/renovate.yml) | Runs Renovate 44.247.1 once a day at 01:17 UTC. The "Run workflow" button on the Actions tab starts a run at once. |
 | [`renovate.json5`](renovate.json5) | The configuration of the run. It combines [`configs/renovate.app.json5`](configs/renovate.app.json5) and [`configs/renovate.infrastructure.json5`](configs/renovate.infrastructure.json5). Comments at the top of the file name the differences. |
 | [`.github/workflows/automerge-example.yml`](.github/workflows/automerge-example.yml) | The status checks for the example files of feature 03. The check for `clsx` passes. The check for `dayjs` fails on purpose. |
 
 Renovate reads only `renovate.json5` in the root. The files `features/*/renovate.json5` and `configs/*.json5` have no effect on the run.
 
-Automerge applies only to the files of feature 03. Renovate merges the PR for `clsx` in the hourly run after its checks pass. The PR for `dayjs` stays open, because its check fails. The patch PRs of the other features stay open for a person.
+Automerge applies only to the files of feature 03. Renovate merges the PR for `clsx` in the first run after its checks pass. The PR for `dayjs` stays open, because its check fails. The patch PRs of the other features stay open for a person.
 
 Feature 07 can become a real PR only with Dependabot alerts on. Renovate reads the security alerts from Dependabot. If Dependabot alerts are off for the repository, Renovate opens no security PR.
 
