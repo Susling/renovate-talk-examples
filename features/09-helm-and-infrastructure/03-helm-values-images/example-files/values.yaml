@@ -5,7 +5,7 @@ podinfo:
 
   image:
     repository: ghcr.io/stefanprodan/podinfo
-    tag: 6.7.0
+    tag: 6.17.0
     pullPolicy: IfNotPresent
 
   service:
