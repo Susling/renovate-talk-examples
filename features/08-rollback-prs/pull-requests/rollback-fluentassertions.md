@@ -1,7 +1,7 @@
-# Roll back dependency FluentAssertions to 7.2.2
+# chore(deps): roll back dependency fluentassertions to 7.2.2
 
 > [!NOTE]
-> Illustrative pull request. The title, the branch name, the version change and the note in the body came from a dry run of Renovate 44.247.1 on 2026-11-23. The package `FluentAssertions`, its versions, the dates and the license change are real. The PR numbers and the links in the table are illustrative.
+> Illustrative pull request. The title is the title of [PR #57](https://github.com/Susling/renovate-talk-examples/pull/57), which Renovate opened in this repository on 2026-11-23. The branch name, the version change and the note in the body came from a dry run of Renovate 44.247.1 on the same day. The package `FluentAssertions`, its versions, the dates and the license change are real. The PR numbers and the links in the table are illustrative.
 
 | Field | Value |
 |---|---|
@@ -102,9 +102,13 @@ The `nuget` manager read `Version="8.0.0"` from `WebApi.Tests.csproj`. The NuGet
 5. `rangeStrategy: 'replace'` let Renovate use 8.0.0 as the current version. With the NuGet default `bump`, Renovate drops the rollback before it makes a branch.
 6. Renovate wrote 7.2.2 into `WebApi.Tests.csproj`.
 
+The note in the PR body says that Renovate did not find version 8.0.0. That is not true for the registry, because 8.0.0 is still on NuGet. Renovate writes the same fixed note for every rollback, in `lib/workers/repository/process/lookup/rollback.ts`. Here "not found" means that 8.0.0 was not in the list after `extractVersion`. No configuration option changes or removes the note.
+
 `allowedVersions: '(,8.0.0)'` did nothing in this PR. It is a second guard. If somebody changes `extractVersion` later, Renovate still proposes no update to 8.0.0 or higher.
 
 The update type is `rollback`. Package rules for `patch` or `major` updates do not match it. So a rule with `automerge: true` for patch updates does not merge this PR.
+
+The title starts with `chore(deps):`, because Renovate found semantic commits in the git history of this repository. A semantic commit has a type prefix such as `fix:` or `chore:`. The `rollback` defaults set the type `fix`. The preset `:semanticPrefixFixDepsChoreOthers` in `config:recommended` sets `chore` for every package and `fix` only for the dependency types `dependencies` and `require`. Renovate applies the package rules after the `rollback` configuration, so the NuGet dependency gets `chore`. With a lowercase type, Renovate also writes the whole title in lowercase.
 
 ## The same PR in this repository
 
