@@ -5,7 +5,7 @@ The Dependency Dashboard is one GitHub issue per repository. Renovate writes the
 | File | What it shows |
 |---|---|
 | [`renovate.json5`](renovate.json5) | The configuration: the dashboard options, approval for major updates, a group, and lock file maintenance |
-| [`dependency-dashboard-issue.md`](dependency-dashboard-issue.md) | The issue for the web application in feature 01 on 2025-01-17, the change after an approval, and the blocked states |
+| [`dependency-dashboard-issue.md`](dependency-dashboard-issue.md) | The issue for the web application in feature 02 on 2025-01-17, the change after an approval, and the blocked states |
 
 The dependency file is [`package.json`](../02-grouping/example-files/package.json) from feature 02.
 

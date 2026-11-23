@@ -6,7 +6,7 @@
 | Field | Value |
 |---|---|
 | Repository | `Susling/renovate-talk-examples`, the example files of a small Node.js service |
-| Pull request | #57, opened by `renovate[bot]` on Monday 2025-01-20, 03:07 UTC |
+| Pull request | #420, opened by `renovate[bot]` on Monday 2025-01-20, 03:07 UTC |
 | Branch | `renovate/lock-file-maintenance` into `main` |
 | Labels | `dependencies` |
 | Update type | lockFileMaintenance |

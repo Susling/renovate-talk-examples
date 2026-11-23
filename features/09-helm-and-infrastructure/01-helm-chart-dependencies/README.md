@@ -41,11 +41,14 @@ If `repository` starts with `https://`, the datasource is `helm`. The datasource
 `Chart.lock` holds the resolved versions and a digest of the dependencies. If `Chart.lock` is in the repository, Renovate updates it with these commands:
 
 ```sh
+helm repo add stable https://charts.helm.sh/stable --force-update
 helm repo add argo-cd https://argoproj.github.io/argo-helm --force-update
 helm dependency update features/09-helm-and-infrastructure/01-helm-chart-dependencies/example-files
 ```
 
-The Renovate installation must have Helm, or it must install Helm. The Mend Renovate app and the `ghcr.io/renovatebot/renovate` image do this. If Helm is missing and you run Renovate yourself, set `binarySource` to `install`.
+The first command comes from the default `registryAliases` of the `helmv3` manager. That default maps the alias `stable` to `https://charts.helm.sh/stable`. Renovate adds each alias as a Helm repository. No chart uses `stable`, but Renovate adds it all the same.
+
+The Renovate installation must have Helm, or it must install Helm. The default value of `binarySource` is `install`. With that value, Renovate runs `install-tool helm <version>` before the Helm commands. The command `install-tool` exists in the `ghcr.io/renovatebot/renovate` image and in the Mend Renovate app. If you run Renovate from npm, install Helm on the machine and set `binarySource` to `global`.
 
 `helm dependency update` also downloads the chart archives to the `charts/` folder. If `postUpdateOptions` contains `helmUpdateSubChartArchives`, Renovate commits the archives too. Without it, Renovate commits only `Chart.yaml` and `Chart.lock`.
 

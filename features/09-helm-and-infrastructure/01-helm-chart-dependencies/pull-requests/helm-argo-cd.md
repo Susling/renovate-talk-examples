@@ -40,12 +40,12 @@ A Helm chart for Argo CD, a declarative, GitOps continuous delivery tool for Kub
 
 #### What's Changed
 
-- chore(deps): bump the dependencies group with 2 updates by [@&#8203;dependabot](https://github.com/dependabot) in [#3122](https://github.com/argoproj/argo-helm/pull/3122)
-- fix(argo-cd): Adding conditionals around argocd-tls-cert-cm.yaml helm creation by [@&#8203;nhershman](https://github.com/nhershman) in [#3124](https://github.com/argoproj/argo-helm/pull/3124)
+- chore(deps): bump the dependencies group with 2 updates by [@&#8203;dependabot](https://github.com/dependabot) in [#&#8203;3122](https://github.com/argoproj/argo-helm/pull/3122)
+- fix(argo-cd): Adding conditionals around argocd-tls-cert-cm.yaml helm creation by [@&#8203;nhershman](https://github.com/nhershman) in [#&#8203;3124](https://github.com/argoproj/argo-helm/pull/3124)
 
 #### New Contributors
 
-- [@&#8203;nhershman](https://github.com/nhershman) made their first contribution in [#3124](https://github.com/argoproj/argo-helm/pull/3124)
+- [@&#8203;nhershman](https://github.com/nhershman) made their first contribution in [#&#8203;3124](https://github.com/argoproj/argo-helm/pull/3124)
 
 **Full Changelog**: [`argo-events-2.4.13...argo-cd-7.7.16`](https://github.com/argoproj/argo-helm/compare/argo-events-2.4.13...argo-cd-7.7.16)
 
@@ -113,14 +113,15 @@ The original files are [`../example-files/Chart.yaml`](../example-files/Chart.ya
 
 The `helmv3` manager read the `dependencies` list in `Chart.yaml`. The dependency has a `name`, a `version` and an HTTPS `repository`. So Renovate used the `helm` datasource. The datasource downloaded `https://argoproj.github.io/argo-helm/index.yaml` and read the versions under `entries.argo-cd`. On 2025-01-17 the newest version was 7.7.16, published on 2025-01-14.
 
-Renovate changed the version in `Chart.yaml`. Then it updated `Chart.lock` with two Helm commands:
+Renovate changed the version in `Chart.yaml`. Then it updated `Chart.lock` with three Helm commands:
 
 ```sh
+helm repo add stable https://charts.helm.sh/stable --force-update
 helm repo add argo-cd https://argoproj.github.io/argo-helm --force-update
 helm dependency update features/09-helm-and-infrastructure/01-helm-chart-dependencies/example-files
 ```
 
-The second command writes a new `digest` and a new `generated` time into `Chart.lock`. It also downloads `argo-cd-7.7.16.tgz` into the folder `charts/` beside `Chart.yaml`. Renovate commits only `Chart.lock`, because the option `helmUpdateSubChartArchives` in `postUpdateOptions` is off.
+The first command comes from the default `registryAliases` of the `helmv3` manager, which maps `stable` to `https://charts.helm.sh/stable`. The last command writes a new `digest` and a new `generated` time into `Chart.lock`. It also downloads `argo-cd-7.7.16.tgz` into the folder `charts/` beside `Chart.yaml`. Renovate does not commit the archive, because the option `helmUpdateSubChartArchives` in `postUpdateOptions` is off. The PR changes only `Chart.yaml` and `Chart.lock`.
 
 The title says "Helm release", because the `helm` datasource sets the commit message topic `Helm release {{depName}}`.
 

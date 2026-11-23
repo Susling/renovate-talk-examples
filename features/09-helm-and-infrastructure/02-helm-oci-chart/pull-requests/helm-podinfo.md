@@ -38,9 +38,9 @@ This PR contains the following updates:
 
 CHANGELOG
 
-- PR [#378](https://github.com/stefanprodan/podinfo/issues/378) Release 6.7.1
-- PR [#377](https://github.com/stefanprodan/podinfo/issues/377) Build with Go 1.23
-- PR [#375](https://github.com/stefanprodan/podinfo/issues/375) build(deps): bump google.golang.org/grpc from 1.64.0 to 1.64.1
+- PR [#&#8203;378](https://github.com/stefanprodan/podinfo/issues/378) Release 6.7.1
+- PR [#&#8203;377](https://github.com/stefanprodan/podinfo/issues/377) Build with Go 1.23
+- PR [#&#8203;375](https://github.com/stefanprodan/podinfo/issues/375) build(deps): bump google.golang.org/grpc from 1.64.0 to 1.64.1
 
 ### [`v6.7.0`](https://github.com/stefanprodan/podinfo/releases/tag/6.7.0)
 
@@ -48,11 +48,11 @@ CHANGELOG
 
 CHANGELOG
 
-- PR [#374](https://github.com/stefanprodan/podinfo/issues/374) Release v6.7.0
-- PR [#373](https://github.com/stefanprodan/podinfo/issues/373) Update dependencies
-- PR [#372](https://github.com/stefanprodan/podinfo/issues/372) Set CUE version in Timoni module
-- PR [#370](https://github.com/stefanprodan/podinfo/issues/370) fix(deploy): add protocol to Redis URL
-- PR [#369](https://github.com/stefanprodan/podinfo/issues/369) GRPC Apis for Corresponding HTTP APIs
+- PR [#&#8203;374](https://github.com/stefanprodan/podinfo/issues/374) Release v6.7.0
+- PR [#&#8203;373](https://github.com/stefanprodan/podinfo/issues/373) Update dependencies
+- PR [#&#8203;372](https://github.com/stefanprodan/podinfo/issues/372) Set CUE version in Timoni module
+- PR [#&#8203;370](https://github.com/stefanprodan/podinfo/issues/370) fix(deploy): add protocol to Redis URL
+- PR [#&#8203;369](https://github.com/stefanprodan/podinfo/issues/369) GRPC Apis for Corresponding HTTP APIs
 
 </details>
 
@@ -120,14 +120,17 @@ The `helmv3` manager read the dependency `podinfo` in `Chart.yaml`. The `reposit
 
 The title says "Docker tag", because the `docker` datasource sets the commit message topic `{{{depName}}} Docker tag`. The update is still a chart update. The name in the title is `podinfo`, because `depName` is the `name` from `Chart.yaml`.
 
-The registry is public, so Renovate needed no host rule. Before the lock file update, Renovate ran this command:
+The registry is public, so Renovate needed no host rule and ran no `helm registry login`. For the lock file update, Renovate ran these commands:
 
 ```sh
+helm repo add stable https://charts.helm.sh/stable --force-update
 helm dependency update features/09-helm-and-infrastructure/02-helm-oci-chart/example-files
 ```
 
+The first command comes from the default `registryAliases` of the `helmv3` manager, which maps `stable` to `https://charts.helm.sh/stable`. Renovate adds no `helm repo add` for an `oci://` repository.
+
 Helm calculates the `digest` in `Chart.lock` from the dependencies in `Chart.yaml` and in the lock file. So the digest changes with the version.
 
-The package name has a link, and the PR has release notes. Renovate read the configuration blob of the chart in the registry. That blob has the fields `home` and `sources` from the `Chart.yaml` of podinfo, and both are `https://github.com/stefanprodan/podinfo`. Renovate then read the GitHub releases 6.7.0 and 6.7.1 of that repository.
+The package name has a link, and the PR has release notes. Renovate read the configuration blob of the chart in the registry. That blob has the fields `home` and `sources` from the `Chart.yaml` of podinfo, and both are `https://github.com/stefanprodan/podinfo`. If the repository name contains `chart` or `helm`, Renovate takes `home`. The name `podinfo` does not, so the URL comes from the first entry in `sources`. Renovate then read the GitHub releases 6.7.0 and 6.7.1 of that repository.
 
-A private chart without `home` and `sources` gets no link and no release notes. Then the table shows only the name `podinfo`.
+A private chart without `sources` gets no link and no release notes. Then the table shows only the name `podinfo`.

@@ -36,7 +36,7 @@ This PR contains the following updates:
 
 [Compare Source](https://github.com/serilog/serilog-aspnetcore/compare/v8.0.2...v8.0.3)
 
-- [#383](https://github.com/serilog/serilog-aspnetcore/issues/383) - update *Serilog.Settings.Configuration* dependency ([@&#8203;Numpsy](https://github.com/Numpsy))
+- [#&#8203;383](https://github.com/serilog/serilog-aspnetcore/issues/383) - update *Serilog.Settings.Configuration* dependency ([@&#8203;Numpsy](https://github.com/Numpsy))
 
 </details>
 
