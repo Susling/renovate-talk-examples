@@ -79,7 +79,7 @@ The comment `# renovate: datasource=... depName=...` is a convention, not a Reno
 These parts come from Renovate 44 and GitHub:
 
 - The named groups, the `g` flag, and the field that each group fills.
-- The PR title, the branch name, the table and the release notes, also the heading `vv3.17.0`.
+- The PR title, the branch name, the table and the release notes.
 - The release dates of Helm v3.17.0 and kubectl v1.32.1, and the release notes text.
 
 The source files are `lib/modules/manager/custom/regex/index.ts`, `lib/modules/manager/custom/regex/utils.ts` and `lib/workers/repository/update/pr/changelog/release-notes.ts`. The file format is an example for this repository. The PR number #76 and the check are fictional.

@@ -63,6 +63,6 @@ The PR is [`pull-requests/replace-mvc-versioning.md`](pull-requests/replace-mvc-
 |---|---|
 | Datasource | The name of the manager, for example `npm` or `nuget`. The column title says "Datasource", but the value comes from the manager |
 | Package | The package name. The link goes to the source repository. Without a known repository, the name has no link |
-| Replacement PR? | "Available": a replacement update exists. "Unavailable": the package is deprecated, and no replacement rule matches |
+| Replacement PR? | "Available": a replacement update exists. "Unavailable" has two causes. The package is deprecated, and no replacement rule matches. Or a replacement rule matches, but the new package is already in the same dependency file |
 
 The row stays in the section until the old package is gone from the dependency files. After you merge the replacement PR, the row disappears in the next run.

@@ -23,7 +23,7 @@ This PR contains the following updates:
 
 | Package | Update | Change |
 |---|---|---|
-| redis | patch | `7.4.1` → `7.4.2` |
+| [redis](https://hub.docker.com/_/redis) ([source](https://github.com/redis/docker-library-redis)) | patch | `7.4.1` → `7.4.2` |
 
 ---
 
@@ -83,6 +83,13 @@ The image `redis` has no registry in its name, so the `docker` datasource read t
 
 The title says "Docker tag", because the `docker` datasource sets the commit message topic `{{{depName}}} Docker tag`.
 
-The official `redis` image has no label `org.opencontainers.image.source`. So the package name has no link and the PR has no release notes.
+The manifest of the official `redis` image has two annotations that give links:
+
+| Annotation | Value | Link in the table |
+|---|---|---|
+| `org.opencontainers.image.url` | `https://hub.docker.com/_/redis` | The package name |
+| `org.opencontainers.image.source` | `https://github.com/redis/docker-library-redis.git#8338d86...:7.4/debian` | `source`. Renovate removes `.git` and the part after `#` |
+
+The source repository holds the Dockerfiles of the image, not the Redis code. It has no tag and no GitHub release for 7.4.2. So the PR has no release notes.
 
 The `Service` in the same file gave no dependency. It has no image. The `kubernetes-api` datasource has a list of kinds with more than one API version, for example `Deployment`, `Ingress` and `CronJob`. `Service` is not in that list.

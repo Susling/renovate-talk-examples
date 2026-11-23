@@ -38,9 +38,9 @@ This PR contains the following updates:
 
 CHANGELOG
 
-- PR [#378](https://github.com/stefanprodan/podinfo/issues/378) Release 6.7.1
-- PR [#377](https://github.com/stefanprodan/podinfo/issues/377) Build with Go 1.23
-- PR [#375](https://github.com/stefanprodan/podinfo/issues/375) build(deps): bump google.golang.org/grpc from 1.64.0 to 1.64.1
+- PR [#&#8203;378](https://github.com/stefanprodan/podinfo/issues/378) Release 6.7.1
+- PR [#&#8203;377](https://github.com/stefanprodan/podinfo/issues/377) Build with Go 1.23
+- PR [#&#8203;375](https://github.com/stefanprodan/podinfo/issues/375) build(deps): bump google.golang.org/grpc from 1.64.0 to 1.64.1
 
 </details>
 

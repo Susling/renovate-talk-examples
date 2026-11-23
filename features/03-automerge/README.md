@@ -53,8 +53,8 @@ Three options decide how the checks control the merge:
 | `ignoreTests` | `false` | Renovate merges only with green checks. A branch without any checks is not green, so it does not merge. With `true`, Renovate merges without checks |
 | `automergeType` | `pr` | `pr` merges a PR. `branch` merges the branch directly into `main` without a PR. If a check fails, Renovate opens a PR |
 
-> [!WARNING]
-> Set the CI checks as required checks on `main` before you turn on automerge. GitHub auto-merge waits only for required checks. Without required checks, GitHub can merge before the CI finishes.
+> [!NOTE]
+> Set the CI checks as required checks on `main` before you turn on automerge. GitHub turns on auto-merge only for a PR that it cannot merge at once. If `main` has no required checks and no required reviews, GitHub refuses. Then Renovate merges the PR in a later run, after all checks pass.
 
 ## Waiting for a new release to settle
 

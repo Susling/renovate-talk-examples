@@ -39,7 +39,7 @@ This PR contains the following updates:
 
 ##### Bug Fixes
 
-- customParseFormat supports Q quter / w ww weekOfYear ([#2705](https://github.com/iamkun/dayjs/issues/2705)) ([8ca74f1](https://github.com/iamkun/dayjs/commit/8ca74f178eff4bb4eb686676cf35fe7edb815536))
+- customParseFormat supports Q quter / w ww weekOfYear ([#&#8203;2705](https://github.com/iamkun/dayjs/issues/2705)) ([8ca74f1](https://github.com/iamkun/dayjs/commit/8ca74f178eff4bb4eb686676cf35fe7edb815536))
 
 </details>
 
@@ -56,7 +56,7 @@ This PR contains the following updates:
 
 🚦 **Automerge**: Enabled.
 
-♻ **Rebasing**: Whenever PR becomes conflicted, or you tick the rebase/retry checkbox.
+♻ **Rebasing**: Whenever PR is behind base branch, or you tick the rebase/retry checkbox.
 
 🔕 **Ignore**: Close this PR and you won't be reminded about this update again.
 

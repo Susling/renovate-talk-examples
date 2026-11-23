@@ -6,7 +6,7 @@
 | Field | Value |
 |---|---|
 | Repository | `Susling/renovate-talk-examples` |
-| Pull request | #419, opened by `renovate[bot]` on 2025-01-17 |
+| Pull request | #239, opened by `renovate[bot]` on 2025-01-17 |
 | Status | Merged by `renovate[bot]` (GitHub auto-merge) |
 | Branch | `renovate/clsx-2.x` into `main` |
 | Labels | `dependencies` |
@@ -39,9 +39,9 @@ This PR contains the following updates:
 
 #### Patches
 
-- (types) Include `bigint` in `ClassValue` type: ([#96](https://github.com/lukeed/clsx/issues/96)): [`3d960ab`](https://github.com/lukeed/clsx/commit/3d960ab)
+- (types) Include `bigint` in `ClassValue` type: ([#&#8203;96](https://github.com/lukeed/clsx/issues/96)): [`3d960ab`](https://github.com/lukeed/clsx/commit/3d960ab)
   *Accommodates recent `@types/react` changes to `ReactNode`.*
-  *Thank you [@ViliamKopecky](https://github.com/ViliamKopecky)~!*
+  *Thank you [@&#8203;ViliamKopecky](https://github.com/ViliamKopecky)~!*
 
 #### Chores
 
@@ -67,7 +67,7 @@ This PR contains the following updates:
 
 🚦 **Automerge**: Enabled.
 
-♻ **Rebasing**: Whenever PR becomes conflicted, or you tick the rebase/retry checkbox.
+♻ **Rebasing**: Whenever PR is behind base branch, or you tick the rebase/retry checkbox.
 
 🔕 **Ignore**: Close this PR and you won't be reminded about this update again.
 
@@ -114,6 +114,6 @@ The update type is patch, and the current version 2.1.0 does not start with `0`.
 
 `platformAutomerge` is `true` by default. In the same run that opens the PR, Renovate turns on the GitHub auto-merge feature. After that step, GitHub decides the time of the merge. Renovate does not have to run again.
 
-GitHub waits only for the checks that branch protection or a ruleset marks as required. If `main` has no required checks, GitHub can merge the PR before the CI finishes. Make sure that the CI checks are required on `main` before you turn on automerge.
+GitHub waits only for the checks that branch protection or a ruleset marks as required. GitHub turns on auto-merge only for a PR that it cannot merge at once. If `main` has no required checks and no required reviews, GitHub refuses the request. Then Renovate merges the PR itself in a later run, after all checks pass. Make the CI checks required on `main`, so that GitHub merges the PR as soon as the checks pass.
 
 The clsx release notes contain one change to the TypeScript types and one change to the README. A patch with short notes and green checks is the normal case for automerge.

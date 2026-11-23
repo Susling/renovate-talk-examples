@@ -32,7 +32,7 @@ This PR contains the following updates:
 <details>
 <summary>helm/helm</summary>
 
-### [`vv3.17.0`](https://github.com/helm/helm/releases/tag/v3.17.0): Helm v3.17.0
+### [`v3.17.0`](https://github.com/helm/helm/releases/tag/v3.17.0): Helm v3.17.0
 
 [Compare Source](https://github.com/helm/helm/compare/v3.16.4...v3.17.0)
 
@@ -126,6 +126,6 @@ The `github-releases` datasource read the releases of the GitHub repository `hel
 
 The title says "dependency helm/helm", because the `github-releases` datasource sets no commit message topic. Renovate then uses the default topic `dependency {{depName}}`. In the branch name, Renovate replaces `/` with `-`.
 
-The release notes heading shows `vv3.17.0`. This is real Renovate behavior: the heading template adds a `v` in front of the version, and a version from `github-releases` already starts with `v`.
+The heading template adds a `v` in front of the version. A version from `github-releases` already starts with `v`, so the template makes `vv3.17.0`. Renovate then replaces `vv` with `v`, so the heading shows `v3.17.0`.
 
 The release name "Helm v3.17.0" follows the heading. Renovate removes the version from the start of a release name, but this name starts with "Helm". Renovate also changed the `##` headings of the release body to `####`, so they fit inside the PR body.

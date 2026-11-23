@@ -21,7 +21,7 @@ flowchart TD
     D["2021-11-04 16:24 UTC<br/>GitHub publishes the advisory"]
     E["npm removes 1.2.9,<br/>1.3.9 and 2.3.9"]
     F["npm ci fails with E404<br/>The main branch does not build"]
-    G["Renovate opens PR #421<br/>Roll back to v1.2.8"]
+    G["Renovate opens PR #421<br/>Roll back to 1.2.8"]
     H["A developer merges PR #421<br/>The main branch builds again"]
     A --> B --> C --> D --> E --> F --> G --> H
 ```
@@ -53,7 +53,7 @@ flowchart TD
     H{"Is the current version<br/>a stable version?"}
     I["Drop the unstable versions<br/>rc has none"]
     J["Take the highest version<br/>1.2.8"]
-    K["PR 'Roll back dependency<br/>rc to v1.2.8'"]
+    K["PR 'Roll back dependency<br/>rc to 1.2.8'"]
     A --> B --> C
     C -->|No| D
     C -->|Yes| E
@@ -80,7 +80,7 @@ The defaults of `rollback` in Renovate 44:
 | Field | Default | Result in the example |
 |---|---|---|
 | `branchTopic` | `{{{depNameSanitized}}}-rollback` | `renovate/rc-rollback` |
-| `commitMessageAction` | `Roll back` | `Roll back dependency rc to v1.2.8` |
+| `commitMessageAction` | `Roll back` | `Roll back dependency rc to 1.2.8` |
 | `semanticCommitType` | `fix` | With semantic commits on: `fix(deps): roll back ...` |
 
 The Renovate docs recommend that you turn on `rollbackPrs` in `packageRules` for some packages, not for all packages. A good match is a package from your own registry, where a person can delete a version. The docs also say that you must not use `rollbackPrs` together with `constraintsFiltering: 'strict'`.
@@ -136,7 +136,7 @@ These parts come from Renovate 44:
 
 The source files are `lib/config/options/index.ts`, `lib/workers/repository/process/lookup/index.ts` and `lib/workers/repository/process/lookup/rollback.ts`.
 
-The package `rc`, its 48 versions, the publish times, the advisory and the removal are real. The npm error came from npm 11.17.0 on 2026-11-21. The PR numbers #409 and #421 are fictional.
+The package `rc`, its 48 versions, the publish times, the advisory and the removal are real. The npm error came from npm 11.17.0 on 2026-11-21. The PR numbers #409 and #421 are fictional. The other dependencies in `example-files/package.json` have versions from 2024 and 2025, not from 2021.
 
 Renovate runs on this repository with the same rule for `rc`, so it opens a real rollback PR for [`example-files/package.json`](example-files/package.json).
 

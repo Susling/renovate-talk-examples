@@ -2,7 +2,7 @@
 
 This page lists every Renovate option that the configurations in this repository use. The defaults come from the option definitions in Renovate 44.247.1. Each option name links to the Renovate docs.
 
-All 15 configuration files in this repository passed the validator of Renovate 44.247.1 in strict mode. This command runs the same check on the two complete configurations:
+All 16 configuration files in this repository passed the validator of Renovate 44.247.1 in strict mode. This command runs the same check on the two complete configurations:
 
 ```sh
 npx --yes --package renovate@44.247.1 -- renovate-config-validator --strict --no-global configs/*.json5

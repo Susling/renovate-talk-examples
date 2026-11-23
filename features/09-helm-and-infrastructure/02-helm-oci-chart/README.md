@@ -68,9 +68,16 @@ If the same registry also has container images, the host rule covers them too. [
 
 ## Release notes from the chart
 
-Renovate reads the configuration blob of the chart in the registry. That blob has the fields `home` and `sources` from the `Chart.yaml` of the chart. If one of them is a GitHub URL, Renovate links the package name and adds the release notes from GitHub. The chart podinfo has `https://github.com/stefanprodan/podinfo` in both fields.
+Renovate looks for the source repository of the chart in this order:
 
-A chart without `home` and `sources` gets no link and no release notes. For your own charts, add `sources` with the URL of the repository.
+1. The annotation `org.opencontainers.image.source` in the manifest of the chart.
+2. The field `home` in the configuration blob of the chart. The blob holds the fields of `Chart.yaml`. The repository name in `home` must contain `chart` or `helm`.
+3. The first URL in `sources` whose repository name contains `chart` or `helm`.
+4. The first URL in `sources`.
+
+Renovate links the package name to that URL and reads the release notes from it. The chart podinfo has no annotation. It has `https://github.com/stefanprodan/podinfo` in `home` and in `sources`. The name `podinfo` contains neither word, so the URL comes from step 4.
+
+A chart without the annotation and without `sources` gets no link and no release notes. For your own charts, add `sources` with the URL of the repository.
 
 ## Real behavior and illustration
 
@@ -78,7 +85,7 @@ These parts come from Renovate 44:
 
 - The datasource choice for `oci://`, the package name and the host type.
 - The Helm commands, the PR title, the branch name and the table.
-- The link and the release notes from `home` and `sources` of the chart.
+- The order in which Renovate looks for the source repository, and the link and the release notes from it.
 
 The source files are `lib/modules/manager/helmv3/extract.ts`, `lib/modules/manager/helmv3/utils.ts`, `lib/modules/manager/helmv3/artifacts.ts` and `lib/modules/datasource/docker/index.ts`.
 

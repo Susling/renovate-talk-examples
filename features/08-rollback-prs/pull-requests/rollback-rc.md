@@ -1,4 +1,4 @@
-# Roll back dependency rc to v1.2.8
+# Roll back dependency rc to 1.2.8
 
 > [!NOTE]
 > Illustrative pull request. The title, the branch name, the table and the note in the body are what Renovate produces for this rollback. The package `rc`, its versions, the dates, the advisory and the npm error are real. The PR numbers are fictional.
@@ -51,7 +51,7 @@ This PR contains the following updates:
 
 | Package | Type | Update | Change |
 |---|---|---|---|
-| [rc](https://github.com/dominictarr/rc) | dependencies | rollback | `1.2.9` → `1.2.8` |
+| [rc](https://github.com/dominictarr/rc) | dependencies | rollback | [`1.2.9` → `1.2.8`](https://renovatebot.com/diffs/npm/rc/1.2.9/1.2.8) |
 
 The version of `rc` in use (`1.2.9`) was not found once Renovate filtered the dependencies. The npm datasource returned 48 entries, but when Renovate applied its filtering, none were left, so Renovate will roll back to a supported version
 

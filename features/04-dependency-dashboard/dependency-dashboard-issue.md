@@ -140,7 +140,7 @@ This issue does not show "PR Closed (Blocked)", because no PR is closed. If a pe
 
 The following updates are blocked by an existing closed PR. To recreate the PR, click on a checkbox below.
 
- - [ ] <!-- recreate-branch=renovate/typescript-5.x -->Update dependency typescript to v5.7.3
+ - [ ] <!-- recreate-branch=renovate/typescript-5.x -->[Update dependency typescript to v5.7.3](../pull/416)
 ```
 
 For a closed major update, Renovate ignores that major version from then on. For a closed minor or patch update, Renovate ignores only that version. A newer version gets a new PR.
